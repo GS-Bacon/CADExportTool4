@@ -54,28 +54,29 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.PartExportOptionGroupBox = new System.Windows.Forms.GroupBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.DrawExportOptionCheckBox = new System.Windows.Forms.GroupBox();
+            this.DrawExportOptionGroupBox = new System.Windows.Forms.GroupBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SelectFileGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.StartExportGroupBox = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.Extension = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ExoportOptionGroupBox.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            this.DrawExportOptionCheckBox.SuspendLayout();
+            this.PartExportOptionGroupBox.SuspendLayout();
+            this.DrawExportOptionGroupBox.SuspendLayout();
             this.SelectFileGroupBox.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.StartExportGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // SelectFileListView
@@ -83,7 +84,8 @@
             this.SelectFileListView.AllowDrop = true;
             this.SelectFileListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.filename,
-            this.path});
+            this.path,
+            this.Extension});
             this.SelectFileListView.HideSelection = false;
             this.SelectFileListView.Location = new System.Drawing.Point(6, 52);
             this.SelectFileListView.Name = "SelectFileListView";
@@ -93,6 +95,7 @@
             this.SelectFileListView.View = System.Windows.Forms.View.Details;
             this.SelectFileListView.DragDrop += new System.Windows.Forms.DragEventHandler(this.SelectFileListView_DragDrop);
             this.SelectFileListView.DragEnter += new System.Windows.Forms.DragEventHandler(this.SelectFileListView_DragEnter);
+            this.SelectFileListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SelectFileListView_KeyDown);
             // 
             // filename
             // 
@@ -127,9 +130,10 @@
             // 
             this.ExoportOptionGroupBox.Controls.Add(this.groupBox3);
             this.ExoportOptionGroupBox.Controls.Add(this.groupBox2);
-            this.ExoportOptionGroupBox.Controls.Add(this.groupBox1);
-            this.ExoportOptionGroupBox.Controls.Add(this.DrawExportOptionCheckBox);
+            this.ExoportOptionGroupBox.Controls.Add(this.PartExportOptionGroupBox);
+            this.ExoportOptionGroupBox.Controls.Add(this.DrawExportOptionGroupBox);
             this.ExoportOptionGroupBox.Controls.Add(this.button1);
+            this.ExoportOptionGroupBox.Enabled = false;
             this.ExoportOptionGroupBox.Location = new System.Drawing.Point(419, 12);
             this.ExoportOptionGroupBox.Name = "ExoportOptionGroupBox";
             this.ExoportOptionGroupBox.Size = new System.Drawing.Size(451, 575);
@@ -349,17 +353,17 @@
             this.radioButton1.Text = "radioButton1";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // PartExportOptionGroupBox
             // 
-            this.groupBox1.Controls.Add(this.checkBox5);
-            this.groupBox1.Controls.Add(this.checkBox3);
-            this.groupBox1.Controls.Add(this.checkBox4);
-            this.groupBox1.Location = new System.Drawing.Point(7, 104);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(438, 46);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "図面出力形式";
+            this.PartExportOptionGroupBox.Controls.Add(this.checkBox5);
+            this.PartExportOptionGroupBox.Controls.Add(this.checkBox3);
+            this.PartExportOptionGroupBox.Controls.Add(this.checkBox4);
+            this.PartExportOptionGroupBox.Location = new System.Drawing.Point(7, 104);
+            this.PartExportOptionGroupBox.Name = "PartExportOptionGroupBox";
+            this.PartExportOptionGroupBox.Size = new System.Drawing.Size(438, 46);
+            this.PartExportOptionGroupBox.TabIndex = 3;
+            this.PartExportOptionGroupBox.TabStop = false;
+            this.PartExportOptionGroupBox.Text = "図面出力形式";
             // 
             // checkBox5
             // 
@@ -391,16 +395,16 @@
             this.checkBox4.Text = ".step";
             this.checkBox4.UseVisualStyleBackColor = true;
             // 
-            // DrawExportOptionCheckBox
+            // DrawExportOptionGroupBox
             // 
-            this.DrawExportOptionCheckBox.Controls.Add(this.checkBox2);
-            this.DrawExportOptionCheckBox.Controls.Add(this.checkBox1);
-            this.DrawExportOptionCheckBox.Location = new System.Drawing.Point(7, 52);
-            this.DrawExportOptionCheckBox.Name = "DrawExportOptionCheckBox";
-            this.DrawExportOptionCheckBox.Size = new System.Drawing.Size(438, 46);
-            this.DrawExportOptionCheckBox.TabIndex = 2;
-            this.DrawExportOptionCheckBox.TabStop = false;
-            this.DrawExportOptionCheckBox.Text = "図面出力形式";
+            this.DrawExportOptionGroupBox.Controls.Add(this.checkBox2);
+            this.DrawExportOptionGroupBox.Controls.Add(this.checkBox1);
+            this.DrawExportOptionGroupBox.Location = new System.Drawing.Point(7, 52);
+            this.DrawExportOptionGroupBox.Name = "DrawExportOptionGroupBox";
+            this.DrawExportOptionGroupBox.Size = new System.Drawing.Size(438, 46);
+            this.DrawExportOptionGroupBox.TabIndex = 2;
+            this.DrawExportOptionGroupBox.TabStop = false;
+            this.DrawExportOptionGroupBox.Text = "図面出力形式";
             // 
             // checkBox2
             // 
@@ -443,18 +447,18 @@
             this.SelectFileGroupBox.TabStop = false;
             this.SelectFileGroupBox.Text = "ファイル選択";
             // 
-            // groupBox4
+            // StartExportGroupBox
             // 
-            this.groupBox4.Controls.Add(this.progressBar1);
-            this.groupBox4.Controls.Add(this.label4);
-            this.groupBox4.Controls.Add(this.button5);
-            this.groupBox4.Controls.Add(this.button4);
-            this.groupBox4.Location = new System.Drawing.Point(419, 587);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(451, 86);
-            this.groupBox4.TabIndex = 4;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "groupBox4";
+            this.StartExportGroupBox.Controls.Add(this.progressBar1);
+            this.StartExportGroupBox.Controls.Add(this.label4);
+            this.StartExportGroupBox.Controls.Add(this.button5);
+            this.StartExportGroupBox.Controls.Add(this.button4);
+            this.StartExportGroupBox.Location = new System.Drawing.Point(419, 587);
+            this.StartExportGroupBox.Name = "StartExportGroupBox";
+            this.StartExportGroupBox.Size = new System.Drawing.Size(451, 86);
+            this.StartExportGroupBox.TabIndex = 4;
+            this.StartExportGroupBox.TabStop = false;
+            this.StartExportGroupBox.Text = "groupBox4";
             // 
             // progressBar1
             // 
@@ -494,13 +498,17 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // Extension
+            // 
+            this.Extension.Text = "拡張子";
+            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(876, 691);
-            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.StartExportGroupBox);
             this.Controls.Add(this.ExoportOptionGroupBox);
             this.Controls.Add(this.SelectFileGroupBox);
             this.Name = "Form1";
@@ -510,13 +518,13 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.DrawExportOptionCheckBox.ResumeLayout(false);
-            this.DrawExportOptionCheckBox.PerformLayout();
+            this.PartExportOptionGroupBox.ResumeLayout(false);
+            this.PartExportOptionGroupBox.PerformLayout();
+            this.DrawExportOptionGroupBox.ResumeLayout(false);
+            this.DrawExportOptionGroupBox.PerformLayout();
             this.SelectFileGroupBox.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.StartExportGroupBox.ResumeLayout(false);
+            this.StartExportGroupBox.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -530,14 +538,14 @@
         private System.Windows.Forms.ColumnHeader path;
         private System.Windows.Forms.GroupBox ExoportOptionGroupBox;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox DrawExportOptionCheckBox;
+        private System.Windows.Forms.GroupBox DrawExportOptionGroupBox;
         private System.Windows.Forms.GroupBox SelectFileGroupBox;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox PartExportOptionGroupBox;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.CheckBox checkBox3;
         private System.Windows.Forms.CheckBox checkBox4;
@@ -558,12 +566,13 @@
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.RadioButton radioButton7;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox StartExportGroupBox;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        public System.Windows.Forms.ColumnHeader Extension;
     }
 }
 
