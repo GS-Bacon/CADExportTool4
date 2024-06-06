@@ -152,8 +152,55 @@ namespace CADExportTool4
                     PartExportOptionGroupBox.Enabled = true;
                 }
                 else PartExportOptionGroupBox.Enabled = false;
+
+                if(this.SameFolderRadioButton.Checked)
+                {
+                    HashSet<string> FolderNameList = new HashSet<string>();
+                    foreach (ListViewItem filename in this.SelectFileListView.Items)
+                    {
+                        FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
+                    }
+                    if (FolderNameList.ToList().Count() == 1)
+                    {
+                        this.SameFolderWarningLabel.ResetText();
+                        this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                    }
+                    else
+                    {
+                        this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                        this.SameFolderWarningLabel.ForeColor = Color.Red;
+                        this.SameFolderWarningLabel.Text = "複数フォルダーから選択されています";
+                    }
+                }
             }
         }
         #endregion
+
+        private void SameFolderRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.SameFolderRadioButton.Checked == true)
+            {
+                HashSet<string> FolderNameList = new HashSet<string>();
+                foreach (ListViewItem filename in this.SelectFileListView.Items)
+                {
+                    FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
+                }
+                if (FolderNameList.ToList().Count() == 1)
+                {
+                    this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                }
+                else
+                {
+                    this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                    this.SameFolderWarningLabel.ForeColor= Color.Red;
+                    this.SameFolderWarningLabel.Text = "複数フォルダーから選択されています";
+                }
+            }
+            else
+            {
+                this.SameFolderWarningLabel.ResetText();
+                this.SameFolderLabel.ResetText();
+            }
+        }
     }
 }
