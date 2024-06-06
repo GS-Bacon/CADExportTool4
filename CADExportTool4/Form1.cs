@@ -120,10 +120,15 @@ namespace CADExportTool4
             }
             SelectFileListVew_Changed();
         }
+        /// <summary>
+        /// SelectFileListViewが変更されたときに実行するイベント
+        /// イベント化出来たらやりたい
+        /// </summary>
         private void SelectFileListVew_Changed()
         {
             if (this.SelectFileListView.Items.Count==0)
             {
+                //リストが空の時はオプション選択を無効に
                 this.StartExportGroupBox.Enabled = false;
                 this.ExoportOptionGroupBox.Enabled = false;
             }
@@ -134,6 +139,7 @@ namespace CADExportTool4
                 ListViewItem drawlistViewItem = SelectFileListView.FindItemWithText(text: ".SLDDRW");
                 if (drawlistViewItem != null)
                 {
+                    //.SLDDRWがある時は図面出力オプションを有効に
                     DrawExportOptionGroupBox.Enabled=true;
                    
                 }
@@ -142,6 +148,7 @@ namespace CADExportTool4
                 ListViewItem partlistViewItem = SelectFileListView.FindItemWithText(text: ".SLDPRT");
                 if (partlistViewItem != null)
                 {
+                    //.SLDDRWがある時は図面出力オプションを有効に
                     PartExportOptionGroupBox.Enabled = true;
                 }
                 else PartExportOptionGroupBox.Enabled = false;

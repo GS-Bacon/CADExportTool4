@@ -31,6 +31,7 @@
             this.SelectFileListView = new System.Windows.Forms.ListView();
             this.filename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.Extension = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.OpenFileDialogButton = new System.Windows.Forms.Button();
             this.SelectResetButton = new System.Windows.Forms.Button();
             this.ExoportOptionGroupBox = new System.Windows.Forms.GroupBox();
@@ -47,20 +48,20 @@
             this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.OtherFolderListBox = new System.Windows.Forms.ListBox();
+            this.SameFolderLabel = new System.Windows.Forms.Label();
+            this.OtherFolderButton = new System.Windows.Forms.Button();
+            this.OtherFolderRadioButton = new System.Windows.Forms.RadioButton();
+            this.LowerFolderComboBox = new System.Windows.Forms.ComboBox();
+            this.LowerFolderRadioButton = new System.Windows.Forms.RadioButton();
+            this.SameFolderRadioButton = new System.Windows.Forms.RadioButton();
             this.PartExportOptionGroupBox = new System.Windows.Forms.GroupBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
+            this.STLCheckBox = new System.Windows.Forms.CheckBox();
+            this.IGSCheckBox = new System.Windows.Forms.CheckBox();
+            this.StepCheckBox = new System.Windows.Forms.CheckBox();
             this.DrawExportOptionGroupBox = new System.Windows.Forms.GroupBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.DXFCheckBox = new System.Windows.Forms.CheckBox();
+            this.PDFCheckBox = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.SelectFileGroupBox = new System.Windows.Forms.GroupBox();
             this.StartExportGroupBox = new System.Windows.Forms.GroupBox();
@@ -69,7 +70,7 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.Extension = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.SameFolderWarningLabel = new System.Windows.Forms.Label();
             this.ExoportOptionGroupBox.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -104,6 +105,10 @@
             // path
             // 
             this.path.Text = "パス";
+            // 
+            // Extension
+            // 
+            this.Extension.Text = "拡張子";
             // 
             // OpenFileDialogButton
             // 
@@ -271,13 +276,14 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.listBox1);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.button2);
-            this.groupBox2.Controls.Add(this.radioButton3);
-            this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.radioButton2);
-            this.groupBox2.Controls.Add(this.radioButton1);
+            this.groupBox2.Controls.Add(this.OtherFolderListBox);
+            this.groupBox2.Controls.Add(this.SameFolderWarningLabel);
+            this.groupBox2.Controls.Add(this.SameFolderLabel);
+            this.groupBox2.Controls.Add(this.OtherFolderButton);
+            this.groupBox2.Controls.Add(this.OtherFolderRadioButton);
+            this.groupBox2.Controls.Add(this.LowerFolderComboBox);
+            this.groupBox2.Controls.Add(this.LowerFolderRadioButton);
+            this.groupBox2.Controls.Add(this.SameFolderRadioButton);
             this.groupBox2.Location = new System.Drawing.Point(7, 157);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(438, 161);
@@ -285,79 +291,79 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "出力フォルダ選択";
             // 
-            // listBox1
+            // OtherFolderListBox
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 12;
-            this.listBox1.Location = new System.Drawing.Point(21, 125);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(315, 28);
-            this.listBox1.TabIndex = 5;
+            this.OtherFolderListBox.FormattingEnabled = true;
+            this.OtherFolderListBox.ItemHeight = 12;
+            this.OtherFolderListBox.Location = new System.Drawing.Point(21, 125);
+            this.OtherFolderListBox.Name = "OtherFolderListBox";
+            this.OtherFolderListBox.Size = new System.Drawing.Size(315, 28);
+            this.OtherFolderListBox.TabIndex = 5;
             // 
-            // label1
+            // SameFolderLabel
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 38);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "label1";
+            this.SameFolderLabel.AutoSize = true;
+            this.SameFolderLabel.Location = new System.Drawing.Point(19, 38);
+            this.SameFolderLabel.Name = "SameFolderLabel";
+            this.SameFolderLabel.Size = new System.Drawing.Size(35, 12);
+            this.SameFolderLabel.TabIndex = 4;
+            this.SameFolderLabel.Text = "label1";
             // 
-            // button2
+            // OtherFolderButton
             // 
-            this.button2.Location = new System.Drawing.Point(342, 125);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(90, 28);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "参照";
-            this.button2.UseVisualStyleBackColor = true;
+            this.OtherFolderButton.Location = new System.Drawing.Point(342, 125);
+            this.OtherFolderButton.Name = "OtherFolderButton";
+            this.OtherFolderButton.Size = new System.Drawing.Size(90, 28);
+            this.OtherFolderButton.TabIndex = 3;
+            this.OtherFolderButton.Text = "参照";
+            this.OtherFolderButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // OtherFolderRadioButton
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 102);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(88, 16);
-            this.radioButton3.TabIndex = 2;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton1";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.OtherFolderRadioButton.AutoSize = true;
+            this.OtherFolderRadioButton.Location = new System.Drawing.Point(6, 102);
+            this.OtherFolderRadioButton.Name = "OtherFolderRadioButton";
+            this.OtherFolderRadioButton.Size = new System.Drawing.Size(88, 16);
+            this.OtherFolderRadioButton.TabIndex = 2;
+            this.OtherFolderRadioButton.TabStop = true;
+            this.OtherFolderRadioButton.Text = "radioButton1";
+            this.OtherFolderRadioButton.UseVisualStyleBackColor = true;
             // 
-            // comboBox1
+            // LowerFolderComboBox
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(21, 75);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 1;
+            this.LowerFolderComboBox.FormattingEnabled = true;
+            this.LowerFolderComboBox.Location = new System.Drawing.Point(21, 75);
+            this.LowerFolderComboBox.Name = "LowerFolderComboBox";
+            this.LowerFolderComboBox.Size = new System.Drawing.Size(121, 20);
+            this.LowerFolderComboBox.TabIndex = 1;
             // 
-            // radioButton2
+            // LowerFolderRadioButton
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 53);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(88, 16);
-            this.radioButton2.TabIndex = 0;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton1";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.LowerFolderRadioButton.AutoSize = true;
+            this.LowerFolderRadioButton.Location = new System.Drawing.Point(6, 53);
+            this.LowerFolderRadioButton.Name = "LowerFolderRadioButton";
+            this.LowerFolderRadioButton.Size = new System.Drawing.Size(183, 16);
+            this.LowerFolderRadioButton.TabIndex = 0;
+            this.LowerFolderRadioButton.TabStop = true;
+            this.LowerFolderRadioButton.Text = "同じ場所にあるフォルダに保存する";
+            this.LowerFolderRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // SameFolderRadioButton
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 19);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(88, 16);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.SameFolderRadioButton.AutoSize = true;
+            this.SameFolderRadioButton.Location = new System.Drawing.Point(6, 19);
+            this.SameFolderRadioButton.Name = "SameFolderRadioButton";
+            this.SameFolderRadioButton.Size = new System.Drawing.Size(143, 16);
+            this.SameFolderRadioButton.TabIndex = 0;
+            this.SameFolderRadioButton.TabStop = true;
+            this.SameFolderRadioButton.Text = "同じフォルダ内に保存する";
+            this.SameFolderRadioButton.UseVisualStyleBackColor = true;
             // 
             // PartExportOptionGroupBox
             // 
-            this.PartExportOptionGroupBox.Controls.Add(this.checkBox5);
-            this.PartExportOptionGroupBox.Controls.Add(this.checkBox3);
-            this.PartExportOptionGroupBox.Controls.Add(this.checkBox4);
+            this.PartExportOptionGroupBox.Controls.Add(this.STLCheckBox);
+            this.PartExportOptionGroupBox.Controls.Add(this.IGSCheckBox);
+            this.PartExportOptionGroupBox.Controls.Add(this.StepCheckBox);
             this.PartExportOptionGroupBox.Location = new System.Drawing.Point(7, 104);
             this.PartExportOptionGroupBox.Name = "PartExportOptionGroupBox";
             this.PartExportOptionGroupBox.Size = new System.Drawing.Size(438, 46);
@@ -365,40 +371,40 @@
             this.PartExportOptionGroupBox.TabStop = false;
             this.PartExportOptionGroupBox.Text = "図面出力形式";
             // 
-            // checkBox5
+            // STLCheckBox
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(107, 19);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(39, 16);
-            this.checkBox5.TabIndex = 1;
-            this.checkBox5.Text = ".stl";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.STLCheckBox.AutoSize = true;
+            this.STLCheckBox.Location = new System.Drawing.Point(107, 19);
+            this.STLCheckBox.Name = "STLCheckBox";
+            this.STLCheckBox.Size = new System.Drawing.Size(39, 16);
+            this.STLCheckBox.TabIndex = 1;
+            this.STLCheckBox.Text = ".stl";
+            this.STLCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox3
+            // IGSCheckBox
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(60, 19);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(41, 16);
-            this.checkBox3.TabIndex = 0;
-            this.checkBox3.Text = ".igs";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.IGSCheckBox.AutoSize = true;
+            this.IGSCheckBox.Location = new System.Drawing.Point(60, 19);
+            this.IGSCheckBox.Name = "IGSCheckBox";
+            this.IGSCheckBox.Size = new System.Drawing.Size(41, 16);
+            this.IGSCheckBox.TabIndex = 0;
+            this.IGSCheckBox.Text = ".igs";
+            this.IGSCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox4
+            // StepCheckBox
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(6, 19);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(48, 16);
-            this.checkBox4.TabIndex = 0;
-            this.checkBox4.Text = ".step";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.StepCheckBox.AutoSize = true;
+            this.StepCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.StepCheckBox.Name = "StepCheckBox";
+            this.StepCheckBox.Size = new System.Drawing.Size(48, 16);
+            this.StepCheckBox.TabIndex = 0;
+            this.StepCheckBox.Text = ".step";
+            this.StepCheckBox.UseVisualStyleBackColor = true;
             // 
             // DrawExportOptionGroupBox
             // 
-            this.DrawExportOptionGroupBox.Controls.Add(this.checkBox2);
-            this.DrawExportOptionGroupBox.Controls.Add(this.checkBox1);
+            this.DrawExportOptionGroupBox.Controls.Add(this.DXFCheckBox);
+            this.DrawExportOptionGroupBox.Controls.Add(this.PDFCheckBox);
             this.DrawExportOptionGroupBox.Location = new System.Drawing.Point(7, 52);
             this.DrawExportOptionGroupBox.Name = "DrawExportOptionGroupBox";
             this.DrawExportOptionGroupBox.Size = new System.Drawing.Size(438, 46);
@@ -406,25 +412,25 @@
             this.DrawExportOptionGroupBox.TabStop = false;
             this.DrawExportOptionGroupBox.Text = "図面出力形式";
             // 
-            // checkBox2
+            // DXFCheckBox
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(54, 19);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(42, 16);
-            this.checkBox2.TabIndex = 0;
-            this.checkBox2.Text = ".dxf";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.DXFCheckBox.AutoSize = true;
+            this.DXFCheckBox.Location = new System.Drawing.Point(54, 19);
+            this.DXFCheckBox.Name = "DXFCheckBox";
+            this.DXFCheckBox.Size = new System.Drawing.Size(42, 16);
+            this.DXFCheckBox.TabIndex = 0;
+            this.DXFCheckBox.Text = ".dxf";
+            this.DXFCheckBox.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // PDFCheckBox
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(6, 19);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(42, 16);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = ".pdf";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.PDFCheckBox.AutoSize = true;
+            this.PDFCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.PDFCheckBox.Name = "PDFCheckBox";
+            this.PDFCheckBox.Size = new System.Drawing.Size(42, 16);
+            this.PDFCheckBox.TabIndex = 0;
+            this.PDFCheckBox.Text = ".pdf";
+            this.PDFCheckBox.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -498,9 +504,14 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // Extension
+            // SameFolderWarningLabel
             // 
-            this.Extension.Text = "拡張子";
+            this.SameFolderWarningLabel.AutoSize = true;
+            this.SameFolderWarningLabel.Location = new System.Drawing.Point(154, 21);
+            this.SameFolderWarningLabel.Name = "SameFolderWarningLabel";
+            this.SameFolderWarningLabel.Size = new System.Drawing.Size(35, 12);
+            this.SameFolderWarningLabel.TabIndex = 4;
+            this.SameFolderWarningLabel.Text = "label1";
             // 
             // Form1
             // 
@@ -540,20 +551,20 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox DrawExportOptionGroupBox;
         private System.Windows.Forms.GroupBox SelectFileGroupBox;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox DXFCheckBox;
+        private System.Windows.Forms.CheckBox PDFCheckBox;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton LowerFolderRadioButton;
+        private System.Windows.Forms.RadioButton SameFolderRadioButton;
         private System.Windows.Forms.GroupBox PartExportOptionGroupBox;
-        private System.Windows.Forms.CheckBox checkBox5;
-        private System.Windows.Forms.CheckBox checkBox3;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.CheckBox STLCheckBox;
+        private System.Windows.Forms.CheckBox IGSCheckBox;
+        private System.Windows.Forms.CheckBox StepCheckBox;
+        private System.Windows.Forms.Label SameFolderLabel;
+        private System.Windows.Forms.Button OtherFolderButton;
+        private System.Windows.Forms.RadioButton OtherFolderRadioButton;
+        private System.Windows.Forms.ComboBox LowerFolderComboBox;
+        private System.Windows.Forms.ListBox OtherFolderListBox;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListBox listBox2;
         private System.Windows.Forms.RadioButton radioButton6;
@@ -573,6 +584,7 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         public System.Windows.Forms.ColumnHeader Extension;
+        private System.Windows.Forms.Label SameFolderWarningLabel;
     }
 }
 
