@@ -70,7 +70,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.SelectFileOpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.OtherFolderOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.ExoportOptionGroupBox.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -324,17 +325,19 @@
             this.OtherFolderButton.TabIndex = 3;
             this.OtherFolderButton.Text = "参照";
             this.OtherFolderButton.UseVisualStyleBackColor = true;
+            this.OtherFolderButton.Click += new System.EventHandler(this.OtherFolderButton_Click);
             // 
             // OtherFolderRadioButton
             // 
             this.OtherFolderRadioButton.AutoSize = true;
             this.OtherFolderRadioButton.Location = new System.Drawing.Point(6, 102);
             this.OtherFolderRadioButton.Name = "OtherFolderRadioButton";
-            this.OtherFolderRadioButton.Size = new System.Drawing.Size(88, 16);
+            this.OtherFolderRadioButton.Size = new System.Drawing.Size(132, 16);
             this.OtherFolderRadioButton.TabIndex = 2;
             this.OtherFolderRadioButton.TabStop = true;
-            this.OtherFolderRadioButton.Text = "radioButton1";
+            this.OtherFolderRadioButton.Text = "他のフォルダに保存する";
             this.OtherFolderRadioButton.UseVisualStyleBackColor = true;
+            this.OtherFolderRadioButton.CheckedChanged += new System.EventHandler(this.OtherFolderRadioButton_CheckedChanged);
             // 
             // LowerFolderComboBox
             // 
@@ -509,9 +512,13 @@
             this.button4.Text = "キャンセル";
             this.button4.UseVisualStyleBackColor = true;
             // 
-            // openFileDialog1
+            // SelectFileOpenFileDialog1
             // 
-            this.openFileDialog1.FileName = "openFileDialog1";
+            this.SelectFileOpenFileDialog1.FileName = "openFileDialog1";
+            // 
+            // OtherFolderOpenFileDialog
+            // 
+            this.OtherFolderOpenFileDialog.FileName = "openFileDialog2";
             // 
             // Form1
             // 
@@ -562,7 +569,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.OpenFileDialog SelectFileOpenFileDialog1;
         public System.Windows.Forms.ColumnHeader Extension;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.ListBox listBox2;
@@ -585,6 +592,7 @@
         private System.Windows.Forms.ComboBox LowerFolderComboBox;
         private System.Windows.Forms.RadioButton LowerFolderRadioButton;
         private System.Windows.Forms.RadioButton SameFolderRadioButton;
+        private System.Windows.Forms.OpenFileDialog OtherFolderOpenFileDialog;
     }
 }
 

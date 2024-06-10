@@ -51,11 +51,11 @@ namespace CADExportTool4
 
         private void OpenFileDialogButton_Click(object sender, EventArgs e)
         {
-            openFileDialog1.Multiselect = true;
-            openFileDialog1.Filter = "CADデータファイル|*.SLDDRW;*.SLDPRT|すべてのファイル|*.*";
-            if (openFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            SelectFileOpenFileDialog1.Multiselect = true;
+            SelectFileOpenFileDialog1.Filter = "CADデータファイル|*.SLDDRW;*.SLDPRT|すべてのファイル|*.*";
+            if (SelectFileOpenFileDialog1.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                SelectFileListView_AddItem(openFileDialog1.FileNames);
+                SelectFileListView_AddItem(SelectFileOpenFileDialog1.FileNames);
             }
 
         }
@@ -231,6 +231,34 @@ namespace CADExportTool4
             {
                 this.LowerFolderRadioButton.ForeColor=Color.Gray;
                 this.LowerFolderComboBox.Enabled = false;
+            }
+        }
+
+        private void OtherFolderRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.OtherFolderRadioButton.Checked == true)
+            {
+                this.OtherFolderRadioButton.ForeColor=Color.Black;
+                this.OtherFolderListBox.Items.Clear();
+                this.OtherFolderListBox.Enabled = true;
+                this.OtherFolderButton.Enabled = true;
+            }
+            else
+            {
+                this.OtherFolderRadioButton.ForeColor = Color.Gray;
+                this.OtherFolderListBox.Enabled= false;
+                this.OtherFolderButton.Enabled = false;
+            }
+        }
+
+        private void OtherFolderButton_Click(object sender, EventArgs e)
+        {
+            CommonOpenFileDialog commonFileDialog = new CommonOpenFileDialog();
+            commonFileDialog.IsFolderPicker=true;
+            commonFileDialog.InitialDirectory = Path.GetDirectoryName(SelectFileListView.Items[0].SubItems[1].Text);
+            if (commonFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                OtherFolderListBox.Items.Add(commonFileDialog.FileName);
             }
         }
     }
