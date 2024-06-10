@@ -212,13 +212,17 @@ namespace CADExportTool4
                 this.LowerFolderRadioButton.ForeColor= Color.Black;
                 this.LowerFolderComboBox.Items.Clear();
                 this.LowerFolderComboBox.Enabled = true;
+                //重複ないリストを作成
                 HashSet<string> FolderNameList= new HashSet<string>();
                 foreach (ListViewItem filename in this.SelectFileListView.Items)
                 {
+                    //ディレクトリを追加
                     FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
                 }
+
                 foreach (string Names in FolderNameList)
                 {
+                    //直下にあるフォルダを追加
                     string[]dirs=Directory.GetDirectories(Names);
                     this.LowerFolderComboBox.Items.AddRange(dirs);
                 }
