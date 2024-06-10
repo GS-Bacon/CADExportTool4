@@ -304,7 +304,7 @@
             // SameFolderWarningLabel
             // 
             this.SameFolderWarningLabel.AutoSize = true;
-            this.SameFolderWarningLabel.Location = new System.Drawing.Point(19, 38);
+            this.SameFolderWarningLabel.Location = new System.Drawing.Point(149, 23);
             this.SameFolderWarningLabel.Name = "SameFolderWarningLabel";
             this.SameFolderWarningLabel.Size = new System.Drawing.Size(0, 12);
             this.SameFolderWarningLabel.TabIndex = 4;
@@ -312,7 +312,7 @@
             // SameFolderLabel
             // 
             this.SameFolderLabel.AutoSize = true;
-            this.SameFolderLabel.Location = new System.Drawing.Point(155, 21);
+            this.SameFolderLabel.Location = new System.Drawing.Point(19, 38);
             this.SameFolderLabel.Name = "SameFolderLabel";
             this.SameFolderLabel.Size = new System.Drawing.Size(0, 12);
             this.SameFolderLabel.TabIndex = 4;
