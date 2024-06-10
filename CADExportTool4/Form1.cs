@@ -176,6 +176,7 @@ namespace CADExportTool4
         }
         #endregion
 
+        #region 保存フォルダ選択オプション
         private void SameFolderRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (this.SameFolderRadioButton.Checked == true)
@@ -261,5 +262,6 @@ namespace CADExportTool4
                 OtherFolderListBox.Items.Add(commonFileDialog.FileName);
             }
         }
+        #endregion
     }
 }
