@@ -180,6 +180,7 @@ namespace CADExportTool4
         {
             if (this.SameFolderRadioButton.Checked == true)
             {
+                this.SameFolderRadioButton.ForeColor = Color.Black;
                 HashSet<string> FolderNameList = new HashSet<string>();
                 foreach (ListViewItem filename in this.SelectFileListView.Items)
                 {
@@ -198,8 +199,34 @@ namespace CADExportTool4
             }
             else
             {
+                this.SameFolderRadioButton.ForeColor = Color.Gray;
                 this.SameFolderWarningLabel.ResetText();
                 this.SameFolderLabel.ResetText();
+            }
+        }
+
+        private void LowerFolderRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.LowerFolderRadioButton.Checked == true)
+            {
+                this.LowerFolderRadioButton.ForeColor= Color.Black;
+                this.LowerFolderComboBox.Items.Clear();
+                this.LowerFolderComboBox.Enabled = true;
+                HashSet<string> FolderNameList= new HashSet<string>();
+                foreach (ListViewItem filename in this.SelectFileListView.Items)
+                {
+                    FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
+                }
+                foreach (string Names in FolderNameList)
+                {
+                    string[]dirs=Directory.GetDirectories(Names);
+                    this.LowerFolderComboBox.Items.AddRange(dirs);
+                }
+            }
+            else
+            {
+                this.LowerFolderRadioButton.ForeColor=Color.Gray;
+                this.LowerFolderComboBox.Enabled = false;
             }
         }
     }
