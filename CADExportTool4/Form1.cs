@@ -155,23 +155,38 @@ namespace CADExportTool4
 
                 if (this.SameFolderRadioButton.Checked)
                 {
-                    HashSet<string> FolderNameList = new HashSet<string>();
-                    foreach (ListViewItem filename in this.SelectFileListView.Items)
-                    {
-                        FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
-                    }
-                    if (FolderNameList.ToList().Count() == 1)
-                    {
-                        this.SameFolderWarningLabel.ResetText();
-                        this.SameFolderLabel.Text = FolderNameList.ToList()[0];
-                    }
-                    else
-                    {
-                        this.SameFolderLabel.Text = FolderNameList.ToList()[0];
-                        this.SameFolderWarningLabel.ForeColor = Color.Red;
-                        this.SameFolderWarningLabel.Text = "複数フォルダーから選択されています";
-                    }
+                    SetSameFolderLabelText();
                 }
+            }
+        }
+        /// <summary>
+        /// フォルダ選択のオプション用ラベルを設定する
+        /// </summary>
+        private void SetSameFolderLabelText()
+        {
+            HashSet<string> FolderNameList = new HashSet<string>();
+            foreach (ListViewItem filename in this.SelectFileListView.Items)
+            {
+                FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
+            }
+            if (FolderNameList.ToList().Count() == 1)
+            {
+                this.SameFolderWarningLabel.ResetText();
+                if (FolderNameList.ToList()[0].Length >= 30)
+                {
+                    this.SameFolderLabel.Text = "..\\" + Path.GetFileName(Path.GetDirectoryName(FolderNameList.ToList()[0]));
+                }
+                else this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+            }
+            else
+            {
+                if (FolderNameList.ToList()[0].Length >= 30)
+                {
+                    this.SameFolderLabel.Text = "..\\" + Path.GetFileName(Path.GetDirectoryName(FolderNameList.ToList()[0]));
+                }
+                else this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                this.SameFolderWarningLabel.ForeColor = Color.Red;
+                this.SameFolderWarningLabel.Text = "複数フォルダーから選択されています";
             }
         }
         #endregion
@@ -182,29 +197,7 @@ namespace CADExportTool4
             if (this.SameFolderRadioButton.Checked == true)
             {
                 this.SameFolderRadioButton.ForeColor = Color.Black;
-                HashSet<string> FolderNameList = new HashSet<string>();
-                foreach (ListViewItem filename in this.SelectFileListView.Items)
-                {
-                    FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
-                }
-                if (FolderNameList.ToList().Count() == 1)
-                {
-                    if (FolderNameList.ToList()[0].Length >= 30)
-                    {
-                        this.SameFolderLabel.Text = "..\\" + Path.GetFileName(Path.GetDirectoryName(FolderNameList.ToList()[0]));
-                    }
-                    else this.SameFolderLabel.Text = FolderNameList.ToList()[0];
-                }
-                else
-                {
-                    if (FolderNameList.ToList()[0].Length >= 30)
-                    {
-                        this.SameFolderLabel.Text = "..\\" + Path.GetFileName(Path.GetDirectoryName(FolderNameList.ToList()[0]));
-                    }
-                    else this.SameFolderLabel.Text = FolderNameList.ToList()[0];
-                    this.SameFolderWarningLabel.ForeColor = Color.Red;
-                    this.SameFolderWarningLabel.Text = "複数フォルダーから選択されています";
-                }
+                SetSameFolderLabelText();
             }
             else
             {
@@ -274,5 +267,35 @@ namespace CADExportTool4
             }
         }
         #endregion
+        private void SeparateByExtensionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.SeparateByExtensionCheckBox.Checked == true)
+            {
+                this.SeparateByExtensionCheckBox.ForeColor = Color.Black;
+            }
+            else
+            {
+                this.SeparateByExtensionCheckBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void ZipOptionCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.ZipOptionCheckBox.Checked == true)
+            {
+                this.ZipOptionGroupBox.Enabled = true;
+                this.ZipOptionCheckBox.ForeColor = Color.Black;
+            }
+            else
+            {
+                this.ZipOptionGroupBox.Enabled = false;
+                this.ZipOptionCheckBox.ForeColor = Color.Gray;
+            }
+        }
+
+        private void ZipLowerFolderRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

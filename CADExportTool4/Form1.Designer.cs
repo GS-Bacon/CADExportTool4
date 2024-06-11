@@ -35,18 +35,17 @@
             this.OpenFileDialogButton = new System.Windows.Forms.Button();
             this.SelectResetButton = new System.Windows.Forms.Button();
             this.ExoportOptionGroupBox = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.listBox2 = new System.Windows.Forms.ListBox();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.PostprocessingOptionGroupBox = new System.Windows.Forms.GroupBox();
+            this.ZipOptionGroupBox = new System.Windows.Forms.GroupBox();
+            this.CreateZipFolderCheckBox = new System.Windows.Forms.CheckBox();
+            this.SameFolederZipRadioButton = new System.Windows.Forms.RadioButton();
+            this.ZipOtherFolderListBox = new System.Windows.Forms.ListBox();
+            this.ZipLowerFolderComboBox = new System.Windows.Forms.ComboBox();
+            this.ZipOtherFolderRadioButton = new System.Windows.Forms.RadioButton();
+            this.ZipOtherFolderButton = new System.Windows.Forms.Button();
+            this.ZipLowerFolderRadioButton = new System.Windows.Forms.RadioButton();
+            this.ZipOptionCheckBox = new System.Windows.Forms.CheckBox();
+            this.SeparateByExtensionCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.OtherFolderListBox = new System.Windows.Forms.ListBox();
             this.SameFolderWarningLabel = new System.Windows.Forms.Label();
@@ -71,9 +70,9 @@
             this.button5 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.SelectFileOpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.OtherFolderOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.ExoportOptionGroupBox.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.PostprocessingOptionGroupBox.SuspendLayout();
+            this.ZipOptionGroupBox.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.PartExportOptionGroupBox.SuspendLayout();
             this.DrawExportOptionGroupBox.SuspendLayout();
@@ -91,7 +90,7 @@
             this.SelectFileListView.HideSelection = false;
             this.SelectFileListView.Location = new System.Drawing.Point(6, 52);
             this.SelectFileListView.Name = "SelectFileListView";
-            this.SelectFileListView.Size = new System.Drawing.Size(384, 609);
+            this.SelectFileListView.Size = new System.Drawing.Size(384, 676);
             this.SelectFileListView.TabIndex = 0;
             this.SelectFileListView.UseCompatibleStateImageBehavior = false;
             this.SelectFileListView.View = System.Windows.Forms.View.Details;
@@ -134,7 +133,7 @@
             // 
             // ExoportOptionGroupBox
             // 
-            this.ExoportOptionGroupBox.Controls.Add(this.groupBox3);
+            this.ExoportOptionGroupBox.Controls.Add(this.PostprocessingOptionGroupBox);
             this.ExoportOptionGroupBox.Controls.Add(this.groupBox2);
             this.ExoportOptionGroupBox.Controls.Add(this.PartExportOptionGroupBox);
             this.ExoportOptionGroupBox.Controls.Add(this.DrawExportOptionGroupBox);
@@ -142,138 +141,138 @@
             this.ExoportOptionGroupBox.Enabled = false;
             this.ExoportOptionGroupBox.Location = new System.Drawing.Point(419, 12);
             this.ExoportOptionGroupBox.Name = "ExoportOptionGroupBox";
-            this.ExoportOptionGroupBox.Size = new System.Drawing.Size(451, 575);
+            this.ExoportOptionGroupBox.Size = new System.Drawing.Size(479, 653);
             this.ExoportOptionGroupBox.TabIndex = 2;
             this.ExoportOptionGroupBox.TabStop = false;
             this.ExoportOptionGroupBox.Text = "出力オプション";
             // 
-            // groupBox3
+            // PostprocessingOptionGroupBox
             // 
-            this.groupBox3.Controls.Add(this.listBox2);
-            this.groupBox3.Controls.Add(this.radioButton6);
-            this.groupBox3.Controls.Add(this.button3);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Controls.Add(this.radioButton7);
-            this.groupBox3.Controls.Add(this.radioButton5);
-            this.groupBox3.Controls.Add(this.radioButton4);
-            this.groupBox3.Controls.Add(this.comboBox2);
-            this.groupBox3.Controls.Add(this.checkBox7);
-            this.groupBox3.Controls.Add(this.checkBox6);
-            this.groupBox3.Location = new System.Drawing.Point(7, 325);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(438, 244);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.PostprocessingOptionGroupBox.Controls.Add(this.ZipOptionGroupBox);
+            this.PostprocessingOptionGroupBox.Controls.Add(this.ZipOptionCheckBox);
+            this.PostprocessingOptionGroupBox.Controls.Add(this.SeparateByExtensionCheckBox);
+            this.PostprocessingOptionGroupBox.Location = new System.Drawing.Point(7, 341);
+            this.PostprocessingOptionGroupBox.Name = "PostprocessingOptionGroupBox";
+            this.PostprocessingOptionGroupBox.Size = new System.Drawing.Size(466, 306);
+            this.PostprocessingOptionGroupBox.TabIndex = 5;
+            this.PostprocessingOptionGroupBox.TabStop = false;
+            this.PostprocessingOptionGroupBox.Text = "後処理オプション";
             // 
-            // listBox2
+            // ZipOptionGroupBox
             // 
-            this.listBox2.FormattingEnabled = true;
-            this.listBox2.ItemHeight = 12;
-            this.listBox2.Location = new System.Drawing.Point(21, 202);
-            this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(348, 28);
-            this.listBox2.TabIndex = 5;
+            this.ZipOptionGroupBox.Controls.Add(this.CreateZipFolderCheckBox);
+            this.ZipOptionGroupBox.Controls.Add(this.SameFolederZipRadioButton);
+            this.ZipOptionGroupBox.Controls.Add(this.ZipOtherFolderListBox);
+            this.ZipOptionGroupBox.Controls.Add(this.ZipLowerFolderComboBox);
+            this.ZipOptionGroupBox.Controls.Add(this.ZipOtherFolderRadioButton);
+            this.ZipOptionGroupBox.Controls.Add(this.ZipOtherFolderButton);
+            this.ZipOptionGroupBox.Controls.Add(this.ZipLowerFolderRadioButton);
+            this.ZipOptionGroupBox.Enabled = false;
+            this.ZipOptionGroupBox.Location = new System.Drawing.Point(7, 63);
+            this.ZipOptionGroupBox.Name = "ZipOptionGroupBox";
+            this.ZipOptionGroupBox.Size = new System.Drawing.Size(453, 237);
+            this.ZipOptionGroupBox.TabIndex = 6;
+            this.ZipOptionGroupBox.TabStop = false;
+            this.ZipOptionGroupBox.Text = "Zipフォルダ保存オプション";
             // 
-            // radioButton6
+            // CreateZipFolderCheckBox
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Location = new System.Drawing.Point(21, 180);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(88, 16);
-            this.radioButton6.TabIndex = 1;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "radioButton4";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this.CreateZipFolderCheckBox.AutoSize = true;
+            this.CreateZipFolderCheckBox.ForeColor = System.Drawing.Color.Gray;
+            this.CreateZipFolderCheckBox.Location = new System.Drawing.Point(6, 156);
+            this.CreateZipFolderCheckBox.Name = "CreateZipFolderCheckBox";
+            this.CreateZipFolderCheckBox.Size = new System.Drawing.Size(260, 16);
+            this.CreateZipFolderCheckBox.TabIndex = 6;
+            this.CreateZipFolderCheckBox.Text = "直下の\"Zip\"フォルダに保存する (ない場合は作る)";
+            this.CreateZipFolderCheckBox.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // SameFolederZipRadioButton
             // 
-            this.button3.Location = new System.Drawing.Point(375, 202);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(57, 28);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "参照";
-            this.button3.UseVisualStyleBackColor = true;
+            this.SameFolederZipRadioButton.AutoSize = true;
+            this.SameFolederZipRadioButton.Checked = true;
+            this.SameFolederZipRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.SameFolederZipRadioButton.Name = "SameFolederZipRadioButton";
+            this.SameFolederZipRadioButton.Size = new System.Drawing.Size(187, 16);
+            this.SameFolederZipRadioButton.TabIndex = 1;
+            this.SameFolederZipRadioButton.TabStop = true;
+            this.SameFolederZipRadioButton.Text = "出力フォルダと同じ場所に生成する";
+            this.SameFolederZipRadioButton.UseVisualStyleBackColor = true;
             // 
-            // label3
+            // ZipOtherFolderListBox
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(39, 117);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 12);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "label1";
+            this.ZipOtherFolderListBox.Enabled = false;
+            this.ZipOtherFolderListBox.FormattingEnabled = true;
+            this.ZipOtherFolderListBox.ItemHeight = 12;
+            this.ZipOtherFolderListBox.Location = new System.Drawing.Point(26, 110);
+            this.ZipOtherFolderListBox.Name = "ZipOtherFolderListBox";
+            this.ZipOtherFolderListBox.Size = new System.Drawing.Size(356, 40);
+            this.ZipOtherFolderListBox.TabIndex = 5;
             // 
-            // label2
+            // ZipLowerFolderComboBox
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(39, 83);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "label1";
+            this.ZipLowerFolderComboBox.Enabled = false;
+            this.ZipLowerFolderComboBox.FormattingEnabled = true;
+            this.ZipLowerFolderComboBox.Location = new System.Drawing.Point(26, 62);
+            this.ZipLowerFolderComboBox.Name = "ZipLowerFolderComboBox";
+            this.ZipLowerFolderComboBox.Size = new System.Drawing.Size(356, 20);
+            this.ZipLowerFolderComboBox.TabIndex = 1;
             // 
-            // radioButton7
+            // ZipOtherFolderRadioButton
             // 
-            this.radioButton7.AutoSize = true;
-            this.radioButton7.Location = new System.Drawing.Point(21, 132);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(88, 16);
-            this.radioButton7.TabIndex = 1;
-            this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "radioButton4";
-            this.radioButton7.UseVisualStyleBackColor = true;
+            this.ZipOtherFolderRadioButton.AutoSize = true;
+            this.ZipOtherFolderRadioButton.ForeColor = System.Drawing.Color.Gray;
+            this.ZipOtherFolderRadioButton.Location = new System.Drawing.Point(6, 88);
+            this.ZipOtherFolderRadioButton.Name = "ZipOtherFolderRadioButton";
+            this.ZipOtherFolderRadioButton.Size = new System.Drawing.Size(132, 16);
+            this.ZipOtherFolderRadioButton.TabIndex = 1;
+            this.ZipOtherFolderRadioButton.Text = "他のフォルダに保存する";
+            this.ZipOtherFolderRadioButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton5
+            // ZipOtherFolderButton
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(21, 98);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(88, 16);
-            this.radioButton5.TabIndex = 1;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "radioButton4";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.ZipOtherFolderButton.Enabled = false;
+            this.ZipOtherFolderButton.Location = new System.Drawing.Point(390, 122);
+            this.ZipOtherFolderButton.Name = "ZipOtherFolderButton";
+            this.ZipOtherFolderButton.Size = new System.Drawing.Size(57, 28);
+            this.ZipOtherFolderButton.TabIndex = 3;
+            this.ZipOtherFolderButton.Text = "参照";
+            this.ZipOtherFolderButton.UseVisualStyleBackColor = true;
             // 
-            // radioButton4
+            // ZipLowerFolderRadioButton
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Location = new System.Drawing.Point(21, 64);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(88, 16);
-            this.radioButton4.TabIndex = 1;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "radioButton4";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.ZipLowerFolderRadioButton.AutoSize = true;
+            this.ZipLowerFolderRadioButton.ForeColor = System.Drawing.Color.Gray;
+            this.ZipLowerFolderRadioButton.Location = new System.Drawing.Point(6, 40);
+            this.ZipLowerFolderRadioButton.Name = "ZipLowerFolderRadioButton";
+            this.ZipLowerFolderRadioButton.Size = new System.Drawing.Size(183, 16);
+            this.ZipLowerFolderRadioButton.TabIndex = 1;
+            this.ZipLowerFolderRadioButton.Text = "同じ場所にあるフォルダに保存する";
+            this.ZipLowerFolderRadioButton.UseVisualStyleBackColor = true;
+            this.ZipLowerFolderRadioButton.CheckedChanged += new System.EventHandler(this.ZipLowerFolderRadioButton_CheckedChanged);
             // 
-            // comboBox2
+            // ZipOptionCheckBox
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(41, 154);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 20);
-            this.comboBox2.TabIndex = 1;
+            this.ZipOptionCheckBox.AutoSize = true;
+            this.ZipOptionCheckBox.ForeColor = System.Drawing.Color.Gray;
+            this.ZipOptionCheckBox.Location = new System.Drawing.Point(7, 41);
+            this.ZipOptionCheckBox.Name = "ZipOptionCheckBox";
+            this.ZipOptionCheckBox.Size = new System.Drawing.Size(177, 16);
+            this.ZipOptionCheckBox.TabIndex = 0;
+            this.ZipOptionCheckBox.Text = "部品ごとのZipファイルを生成する";
+            this.ZipOptionCheckBox.UseVisualStyleBackColor = true;
+            this.ZipOptionCheckBox.CheckedChanged += new System.EventHandler(this.ZipOptionCheckBox_CheckedChanged);
             // 
-            // checkBox7
+            // SeparateByExtensionCheckBox
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(7, 41);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(80, 16);
-            this.checkBox7.TabIndex = 0;
-            this.checkBox7.Text = "checkBox6";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            // 
-            // checkBox6
-            // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(7, 19);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(80, 16);
-            this.checkBox6.TabIndex = 0;
-            this.checkBox6.Text = "checkBox6";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.SeparateByExtensionCheckBox.AutoSize = true;
+            this.SeparateByExtensionCheckBox.ForeColor = System.Drawing.Color.Gray;
+            this.SeparateByExtensionCheckBox.Location = new System.Drawing.Point(7, 19);
+            this.SeparateByExtensionCheckBox.Name = "SeparateByExtensionCheckBox";
+            this.SeparateByExtensionCheckBox.Size = new System.Drawing.Size(171, 16);
+            this.SeparateByExtensionCheckBox.TabIndex = 0;
+            this.SeparateByExtensionCheckBox.Text = "拡張子ごとにフォルダーを分ける";
+            this.SeparateByExtensionCheckBox.UseVisualStyleBackColor = true;
+            this.SeparateByExtensionCheckBox.CheckedChanged += new System.EventHandler(this.SeparateByExtensionCheckBox_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -287,7 +286,7 @@
             this.groupBox2.Controls.Add(this.SameFolderRadioButton);
             this.groupBox2.Location = new System.Drawing.Point(7, 157);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(438, 161);
+            this.groupBox2.Size = new System.Drawing.Size(466, 178);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "出力フォルダ選択";
@@ -298,7 +297,7 @@
             this.OtherFolderListBox.ItemHeight = 12;
             this.OtherFolderListBox.Location = new System.Drawing.Point(21, 125);
             this.OtherFolderListBox.Name = "OtherFolderListBox";
-            this.OtherFolderListBox.Size = new System.Drawing.Size(348, 28);
+            this.OtherFolderListBox.Size = new System.Drawing.Size(368, 40);
             this.OtherFolderListBox.TabIndex = 5;
             // 
             // SameFolderWarningLabel
@@ -319,7 +318,8 @@
             // 
             // OtherFolderButton
             // 
-            this.OtherFolderButton.Location = new System.Drawing.Point(375, 125);
+            this.OtherFolderButton.Enabled = false;
+            this.OtherFolderButton.Location = new System.Drawing.Point(397, 125);
             this.OtherFolderButton.Name = "OtherFolderButton";
             this.OtherFolderButton.Size = new System.Drawing.Size(57, 28);
             this.OtherFolderButton.TabIndex = 3;
@@ -330,31 +330,32 @@
             // OtherFolderRadioButton
             // 
             this.OtherFolderRadioButton.AutoSize = true;
+            this.OtherFolderRadioButton.ForeColor = System.Drawing.Color.Gray;
             this.OtherFolderRadioButton.Location = new System.Drawing.Point(6, 102);
             this.OtherFolderRadioButton.Name = "OtherFolderRadioButton";
             this.OtherFolderRadioButton.Size = new System.Drawing.Size(132, 16);
             this.OtherFolderRadioButton.TabIndex = 2;
-            this.OtherFolderRadioButton.TabStop = true;
             this.OtherFolderRadioButton.Text = "他のフォルダに保存する";
             this.OtherFolderRadioButton.UseVisualStyleBackColor = true;
             this.OtherFolderRadioButton.CheckedChanged += new System.EventHandler(this.OtherFolderRadioButton_CheckedChanged);
             // 
             // LowerFolderComboBox
             // 
+            this.LowerFolderComboBox.Enabled = false;
             this.LowerFolderComboBox.FormattingEnabled = true;
             this.LowerFolderComboBox.Location = new System.Drawing.Point(21, 75);
             this.LowerFolderComboBox.Name = "LowerFolderComboBox";
-            this.LowerFolderComboBox.Size = new System.Drawing.Size(348, 20);
+            this.LowerFolderComboBox.Size = new System.Drawing.Size(368, 20);
             this.LowerFolderComboBox.TabIndex = 1;
             // 
             // LowerFolderRadioButton
             // 
             this.LowerFolderRadioButton.AutoSize = true;
+            this.LowerFolderRadioButton.ForeColor = System.Drawing.Color.Gray;
             this.LowerFolderRadioButton.Location = new System.Drawing.Point(6, 53);
             this.LowerFolderRadioButton.Name = "LowerFolderRadioButton";
             this.LowerFolderRadioButton.Size = new System.Drawing.Size(183, 16);
             this.LowerFolderRadioButton.TabIndex = 0;
-            this.LowerFolderRadioButton.TabStop = true;
             this.LowerFolderRadioButton.Text = "同じ場所にあるフォルダに保存する";
             this.LowerFolderRadioButton.UseVisualStyleBackColor = true;
             this.LowerFolderRadioButton.CheckedChanged += new System.EventHandler(this.LowerFolderRadioButton_CheckedChanged);
@@ -362,6 +363,7 @@
             // SameFolderRadioButton
             // 
             this.SameFolderRadioButton.AutoSize = true;
+            this.SameFolderRadioButton.Checked = true;
             this.SameFolderRadioButton.Location = new System.Drawing.Point(6, 19);
             this.SameFolderRadioButton.Name = "SameFolderRadioButton";
             this.SameFolderRadioButton.Size = new System.Drawing.Size(143, 16);
@@ -378,7 +380,7 @@
             this.PartExportOptionGroupBox.Controls.Add(this.StepCheckBox);
             this.PartExportOptionGroupBox.Location = new System.Drawing.Point(7, 104);
             this.PartExportOptionGroupBox.Name = "PartExportOptionGroupBox";
-            this.PartExportOptionGroupBox.Size = new System.Drawing.Size(438, 46);
+            this.PartExportOptionGroupBox.Size = new System.Drawing.Size(466, 46);
             this.PartExportOptionGroupBox.TabIndex = 3;
             this.PartExportOptionGroupBox.TabStop = false;
             this.PartExportOptionGroupBox.Text = "図面出力形式";
@@ -419,7 +421,7 @@
             this.DrawExportOptionGroupBox.Controls.Add(this.PDFCheckBox);
             this.DrawExportOptionGroupBox.Location = new System.Drawing.Point(7, 52);
             this.DrawExportOptionGroupBox.Name = "DrawExportOptionGroupBox";
-            this.DrawExportOptionGroupBox.Size = new System.Drawing.Size(438, 46);
+            this.DrawExportOptionGroupBox.Size = new System.Drawing.Size(466, 46);
             this.DrawExportOptionGroupBox.TabIndex = 2;
             this.DrawExportOptionGroupBox.TabStop = false;
             this.DrawExportOptionGroupBox.Text = "図面出力形式";
@@ -446,7 +448,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(349, 18);
+            this.button1.Location = new System.Drawing.Point(377, 18);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 28);
             this.button1.TabIndex = 1;
@@ -460,7 +462,7 @@
             this.SelectFileGroupBox.Controls.Add(this.OpenFileDialogButton);
             this.SelectFileGroupBox.Location = new System.Drawing.Point(13, 12);
             this.SelectFileGroupBox.Name = "SelectFileGroupBox";
-            this.SelectFileGroupBox.Size = new System.Drawing.Size(400, 667);
+            this.SelectFileGroupBox.Size = new System.Drawing.Size(400, 740);
             this.SelectFileGroupBox.TabIndex = 3;
             this.SelectFileGroupBox.TabStop = false;
             this.SelectFileGroupBox.Text = "ファイル選択";
@@ -471,9 +473,10 @@
             this.StartExportGroupBox.Controls.Add(this.label4);
             this.StartExportGroupBox.Controls.Add(this.button5);
             this.StartExportGroupBox.Controls.Add(this.button4);
-            this.StartExportGroupBox.Location = new System.Drawing.Point(419, 587);
+            this.StartExportGroupBox.Enabled = false;
+            this.StartExportGroupBox.Location = new System.Drawing.Point(419, 671);
             this.StartExportGroupBox.Name = "StartExportGroupBox";
-            this.StartExportGroupBox.Size = new System.Drawing.Size(451, 86);
+            this.StartExportGroupBox.Size = new System.Drawing.Size(479, 81);
             this.StartExportGroupBox.TabIndex = 4;
             this.StartExportGroupBox.TabStop = false;
             this.StartExportGroupBox.Text = "groupBox4";
@@ -482,7 +485,7 @@
             // 
             this.progressBar1.Location = new System.Drawing.Point(7, 46);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(438, 23);
+            this.progressBar1.Size = new System.Drawing.Size(466, 23);
             this.progressBar1.TabIndex = 5;
             // 
             // label4
@@ -496,7 +499,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(259, 12);
+            this.button5.Location = new System.Drawing.Point(286, 12);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(90, 28);
             this.button5.TabIndex = 3;
@@ -505,7 +508,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(355, 12);
+            this.button4.Location = new System.Drawing.Point(383, 12);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(90, 28);
             this.button4.TabIndex = 3;
@@ -516,24 +519,22 @@
             // 
             this.SelectFileOpenFileDialog1.FileName = "openFileDialog1";
             // 
-            // OtherFolderOpenFileDialog
-            // 
-            this.OtherFolderOpenFileDialog.FileName = "openFileDialog2";
-            // 
             // Form1
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(876, 691);
+            this.ClientSize = new System.Drawing.Size(908, 761);
             this.Controls.Add(this.StartExportGroupBox);
             this.Controls.Add(this.ExoportOptionGroupBox);
             this.Controls.Add(this.SelectFileGroupBox);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ExoportOptionGroupBox.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.PostprocessingOptionGroupBox.ResumeLayout(false);
+            this.PostprocessingOptionGroupBox.PerformLayout();
+            this.ZipOptionGroupBox.ResumeLayout(false);
+            this.ZipOptionGroupBox.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.PartExportOptionGroupBox.ResumeLayout(false);
@@ -569,20 +570,16 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.OpenFileDialog SelectFileOpenFileDialog1;
         public System.Windows.Forms.ColumnHeader Extension;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ListBox listBox2;
-        private System.Windows.Forms.RadioButton radioButton6;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton radioButton7;
-        private System.Windows.Forms.RadioButton radioButton5;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.GroupBox PostprocessingOptionGroupBox;
+        private System.Windows.Forms.ListBox ZipOtherFolderListBox;
+        private System.Windows.Forms.RadioButton ZipOtherFolderRadioButton;
+        private System.Windows.Forms.Button ZipOtherFolderButton;
+        private System.Windows.Forms.RadioButton ZipLowerFolderRadioButton;
+        private System.Windows.Forms.RadioButton SameFolederZipRadioButton;
+        private System.Windows.Forms.ComboBox ZipLowerFolderComboBox;
+        private System.Windows.Forms.CheckBox ZipOptionCheckBox;
+        private System.Windows.Forms.CheckBox SeparateByExtensionCheckBox;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ListBox OtherFolderListBox;
         private System.Windows.Forms.Label SameFolderWarningLabel;
@@ -592,7 +589,9 @@
         private System.Windows.Forms.ComboBox LowerFolderComboBox;
         private System.Windows.Forms.RadioButton LowerFolderRadioButton;
         private System.Windows.Forms.RadioButton SameFolderRadioButton;
-        private System.Windows.Forms.OpenFileDialog OtherFolderOpenFileDialog;
+        private System.Windows.Forms.GroupBox ZipOptionGroupBox;
+        private System.Windows.Forms.OpenFileDialog SelectFileOpenFileDialog1;
+        private System.Windows.Forms.CheckBox CreateZipFolderCheckBox;
     }
 }
 
