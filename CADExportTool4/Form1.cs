@@ -75,7 +75,7 @@ namespace CADExportTool4
                     string FileExtesion = Path.GetExtension(filename);
                     if (CADExportTool4.ExportOption.ExportExtensions.Contains(FileExtesion))
                     {
-                        string[] item = { Path.GetFileName(filename), filename ,FileExtesion};
+                        string[] item = { Path.GetFileName(filename), filename, FileExtesion };
                         var Listitem = new ListViewItem(item);
                         //拡張子によって文字の色を分ける
                         switch (FileExtesion)
@@ -126,7 +126,7 @@ namespace CADExportTool4
         /// </summary>
         private void SelectFileListVew_Changed()
         {
-            if (this.SelectFileListView.Items.Count==0)
+            if (this.SelectFileListView.Items.Count == 0)
             {
                 //リストが空の時はオプション選択を無効に
                 this.StartExportGroupBox.Enabled = false;
@@ -140,8 +140,8 @@ namespace CADExportTool4
                 if (drawlistViewItem != null)
                 {
                     //.SLDDRWがある時は図面出力オプションを有効に
-                    DrawExportOptionGroupBox.Enabled=true;
-                   
+                    DrawExportOptionGroupBox.Enabled = true;
+
                 }
                 else DrawExportOptionGroupBox.Enabled = false;
 
@@ -153,7 +153,7 @@ namespace CADExportTool4
                 }
                 else PartExportOptionGroupBox.Enabled = false;
 
-                if(this.SameFolderRadioButton.Checked)
+                if (this.SameFolderRadioButton.Checked)
                 {
                     HashSet<string> FolderNameList = new HashSet<string>();
                     foreach (ListViewItem filename in this.SelectFileListView.Items)
@@ -189,12 +189,20 @@ namespace CADExportTool4
                 }
                 if (FolderNameList.ToList().Count() == 1)
                 {
-                    this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                    if (FolderNameList.ToList()[0].Length >= 30)
+                    {
+                        this.SameFolderLabel.Text = "..\\" + Path.GetFileName(Path.GetDirectoryName(FolderNameList.ToList()[0]));
+                    }
+                    else this.SameFolderLabel.Text = FolderNameList.ToList()[0];
                 }
                 else
                 {
-                    this.SameFolderLabel.Text = FolderNameList.ToList()[0];
-                    this.SameFolderWarningLabel.ForeColor= Color.Red;
+                    if (FolderNameList.ToList()[0].Length >= 30)
+                    {
+                        this.SameFolderLabel.Text = "..\\" + Path.GetFileName(Path.GetDirectoryName(FolderNameList.ToList()[0]));
+                    }
+                    else this.SameFolderLabel.Text = FolderNameList.ToList()[0];
+                    this.SameFolderWarningLabel.ForeColor = Color.Red;
                     this.SameFolderWarningLabel.Text = "複数フォルダーから選択されています";
                 }
             }
@@ -210,11 +218,11 @@ namespace CADExportTool4
         {
             if (this.LowerFolderRadioButton.Checked == true)
             {
-                this.LowerFolderRadioButton.ForeColor= Color.Black;
+                this.LowerFolderRadioButton.ForeColor = Color.Black;
                 this.LowerFolderComboBox.Items.Clear();
                 this.LowerFolderComboBox.Enabled = true;
                 //重複ないリストを作成
-                HashSet<string> FolderNameList= new HashSet<string>();
+                HashSet<string> FolderNameList = new HashSet<string>();
                 foreach (ListViewItem filename in this.SelectFileListView.Items)
                 {
                     //ディレクトリを追加
@@ -224,13 +232,16 @@ namespace CADExportTool4
                 foreach (string Names in FolderNameList)
                 {
                     //直下にあるフォルダを追加
-                    string[]dirs=Directory.GetDirectories(Names);
-                    this.LowerFolderComboBox.Items.AddRange(dirs);
+                    string[] dirs = Directory.GetDirectories(Names);
+                    foreach (string Names2 in dirs)
+                    {
+                        this.LowerFolderComboBox.Items.Add(Path.GetFileName(Names2));
+                    }
                 }
             }
             else
             {
-                this.LowerFolderRadioButton.ForeColor=Color.Gray;
+                this.LowerFolderRadioButton.ForeColor = Color.Gray;
                 this.LowerFolderComboBox.Enabled = false;
             }
         }
@@ -239,7 +250,7 @@ namespace CADExportTool4
         {
             if (this.OtherFolderRadioButton.Checked == true)
             {
-                this.OtherFolderRadioButton.ForeColor=Color.Black;
+                this.OtherFolderRadioButton.ForeColor = Color.Black;
                 this.OtherFolderListBox.Items.Clear();
                 this.OtherFolderListBox.Enabled = true;
                 this.OtherFolderButton.Enabled = true;
@@ -247,7 +258,7 @@ namespace CADExportTool4
             else
             {
                 this.OtherFolderRadioButton.ForeColor = Color.Gray;
-                this.OtherFolderListBox.Enabled= false;
+                this.OtherFolderListBox.Enabled = false;
                 this.OtherFolderButton.Enabled = false;
             }
         }
@@ -255,7 +266,7 @@ namespace CADExportTool4
         private void OtherFolderButton_Click(object sender, EventArgs e)
         {
             CommonOpenFileDialog commonFileDialog = new CommonOpenFileDialog();
-            commonFileDialog.IsFolderPicker=true;
+            commonFileDialog.IsFolderPicker = true;
             commonFileDialog.InitialDirectory = Path.GetDirectoryName(SelectFileListView.Items[0].SubItems[1].Text);
             if (commonFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
