@@ -38,7 +38,7 @@
             this.PostprocessingOptionGroupBox = new System.Windows.Forms.GroupBox();
             this.ZipOptionGroupBox = new System.Windows.Forms.GroupBox();
             this.CreateZipFolderCheckBox = new System.Windows.Forms.CheckBox();
-            this.SameFolederZipRadioButton = new System.Windows.Forms.RadioButton();
+            this.ZipSameFolederRadioButton = new System.Windows.Forms.RadioButton();
             this.ZipOtherFolderListBox = new System.Windows.Forms.ListBox();
             this.ZipLowerFolderComboBox = new System.Windows.Forms.ComboBox();
             this.ZipOtherFolderRadioButton = new System.Windows.Forms.RadioButton();
@@ -161,7 +161,7 @@
             // ZipOptionGroupBox
             // 
             this.ZipOptionGroupBox.Controls.Add(this.CreateZipFolderCheckBox);
-            this.ZipOptionGroupBox.Controls.Add(this.SameFolederZipRadioButton);
+            this.ZipOptionGroupBox.Controls.Add(this.ZipSameFolederRadioButton);
             this.ZipOptionGroupBox.Controls.Add(this.ZipOtherFolderListBox);
             this.ZipOptionGroupBox.Controls.Add(this.ZipLowerFolderComboBox);
             this.ZipOptionGroupBox.Controls.Add(this.ZipOtherFolderRadioButton);
@@ -186,17 +186,18 @@
             this.CreateZipFolderCheckBox.Text = "直下の\"Zip\"フォルダに保存する (ない場合は作る)";
             this.CreateZipFolderCheckBox.UseVisualStyleBackColor = true;
             // 
-            // SameFolederZipRadioButton
+            // ZipSameFolederRadioButton
             // 
-            this.SameFolederZipRadioButton.AutoSize = true;
-            this.SameFolederZipRadioButton.Checked = true;
-            this.SameFolederZipRadioButton.Location = new System.Drawing.Point(6, 18);
-            this.SameFolederZipRadioButton.Name = "SameFolederZipRadioButton";
-            this.SameFolederZipRadioButton.Size = new System.Drawing.Size(187, 16);
-            this.SameFolederZipRadioButton.TabIndex = 1;
-            this.SameFolederZipRadioButton.TabStop = true;
-            this.SameFolederZipRadioButton.Text = "出力フォルダと同じ場所に生成する";
-            this.SameFolederZipRadioButton.UseVisualStyleBackColor = true;
+            this.ZipSameFolederRadioButton.AutoSize = true;
+            this.ZipSameFolederRadioButton.Checked = true;
+            this.ZipSameFolederRadioButton.Location = new System.Drawing.Point(6, 18);
+            this.ZipSameFolederRadioButton.Name = "ZipSameFolederRadioButton";
+            this.ZipSameFolederRadioButton.Size = new System.Drawing.Size(187, 16);
+            this.ZipSameFolederRadioButton.TabIndex = 1;
+            this.ZipSameFolederRadioButton.TabStop = true;
+            this.ZipSameFolederRadioButton.Text = "出力フォルダと同じ場所に生成する";
+            this.ZipSameFolederRadioButton.UseVisualStyleBackColor = true;
+            this.ZipSameFolederRadioButton.CheckedChanged += new System.EventHandler(this.SameFolederZipRadioButton_CheckedChanged);
             // 
             // ZipOtherFolderListBox
             // 
@@ -576,7 +577,7 @@
         private System.Windows.Forms.RadioButton ZipOtherFolderRadioButton;
         private System.Windows.Forms.Button ZipOtherFolderButton;
         private System.Windows.Forms.RadioButton ZipLowerFolderRadioButton;
-        private System.Windows.Forms.RadioButton SameFolederZipRadioButton;
+        private System.Windows.Forms.RadioButton ZipSameFolederRadioButton;
         private System.Windows.Forms.ComboBox ZipLowerFolderComboBox;
         private System.Windows.Forms.CheckBox ZipOptionCheckBox;
         private System.Windows.Forms.CheckBox SeparateByExtensionCheckBox;

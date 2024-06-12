@@ -292,10 +292,21 @@ namespace CADExportTool4
                 this.ZipOptionCheckBox.ForeColor = Color.Gray;
             }
         }
+        private void SameFolederZipRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.ZipSameFolederRadioButton.Checked == true)
+            {
+                this.ZipSameFolederRadioButton.ForeColor = Color.Black;
+            }
+        }
 
         private void ZipLowerFolderRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            if (this.ZipLowerFolderRadioButton.Checked == true)
+            {
 
+            }
         }
+
     }
 }
