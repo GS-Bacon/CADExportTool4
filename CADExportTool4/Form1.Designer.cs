@@ -185,6 +185,7 @@
             this.CreateZipFolderCheckBox.TabIndex = 6;
             this.CreateZipFolderCheckBox.Text = "直下の\"Zip\"フォルダに保存する (ない場合は作る)";
             this.CreateZipFolderCheckBox.UseVisualStyleBackColor = true;
+            this.CreateZipFolderCheckBox.CheckedChanged += new System.EventHandler(this.CreateZipFolderCheckBox_CheckedChanged);
             // 
             // ZipSameFolederRadioButton
             // 
@@ -228,16 +229,18 @@
             this.ZipOtherFolderRadioButton.TabIndex = 1;
             this.ZipOtherFolderRadioButton.Text = "他のフォルダに保存する";
             this.ZipOtherFolderRadioButton.UseVisualStyleBackColor = true;
+            this.ZipOtherFolderRadioButton.CheckedChanged += new System.EventHandler(this.ZipOtherFolderRadioButton_CheckedChanged);
             // 
             // ZipOtherFolderButton
             // 
             this.ZipOtherFolderButton.Enabled = false;
-            this.ZipOtherFolderButton.Location = new System.Drawing.Point(390, 122);
+            this.ZipOtherFolderButton.Location = new System.Drawing.Point(390, 110);
             this.ZipOtherFolderButton.Name = "ZipOtherFolderButton";
             this.ZipOtherFolderButton.Size = new System.Drawing.Size(57, 28);
             this.ZipOtherFolderButton.TabIndex = 3;
             this.ZipOtherFolderButton.Text = "参照";
             this.ZipOtherFolderButton.UseVisualStyleBackColor = true;
+            this.ZipOtherFolderButton.Click += new System.EventHandler(this.ZipOtherFolderButton_Click);
             // 
             // ZipLowerFolderRadioButton
             // 

@@ -244,7 +244,6 @@ namespace CADExportTool4
             if (this.OtherFolderRadioButton.Checked == true)
             {
                 this.OtherFolderRadioButton.ForeColor = Color.Black;
-                this.OtherFolderListBox.Items.Clear();
                 this.OtherFolderListBox.Enabled = true;
                 this.OtherFolderButton.Enabled = true;
             }
@@ -263,6 +262,7 @@ namespace CADExportTool4
             commonFileDialog.InitialDirectory = Path.GetDirectoryName(SelectFileListView.Items[0].SubItems[1].Text);
             if (commonFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
             {
+                this.OtherFolderListBox.Items.Clear();
                 OtherFolderListBox.Items.Add(commonFileDialog.FileName);
             }
         }
@@ -298,15 +298,82 @@ namespace CADExportTool4
             {
                 this.ZipSameFolederRadioButton.ForeColor = Color.Black;
             }
+            else
+            {
+                this.ZipSameFolederRadioButton.ForeColor = Color.Gray;
+            }
         }
 
         private void ZipLowerFolderRadioButton_CheckedChanged(object sender, EventArgs e)
         {
             if (this.ZipLowerFolderRadioButton.Checked == true)
             {
+                this.ZipLowerFolderRadioButton.ForeColor = Color.Black;
+                this.ZipLowerFolderComboBox.Enabled = true;
+                this.ZipLowerFolderComboBox.Items.Clear();
+                HashSet<string> FolderNameList = new HashSet<string>();
+                foreach (ListViewItem filename in this.SelectFileListView.Items)
+                {
+                    //ディレクトリを追加
+                    FolderNameList.Add(Path.GetDirectoryName(filename.SubItems[1].Text));
+                }
 
+                foreach (string Names in FolderNameList)
+                {
+                    //直下にあるフォルダを追加
+                    string[] dirs = Directory.GetDirectories(Names);
+                    foreach (string Names2 in dirs)
+                    {
+                        this.ZipLowerFolderComboBox.Items.Add(Path.GetFileName(Names2));
+                    }
+                }
+
+            }
+            else
+            {
+                this.ZipLowerFolderRadioButton.ForeColor = Color.Gray;
+                this.ZipLowerFolderComboBox.Enabled = false;
             }
         }
 
+        private void ZipOtherFolderRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if(this.ZipOtherFolderRadioButton.Checked == true)
+            {
+                this.ZipOtherFolderRadioButton.ForeColor= Color.Black;
+                this.ZipOtherFolderListBox.Enabled = true;
+                this.ZipOtherFolderButton.Enabled = true;
+            }
+            else
+            {
+                this.ZipOtherFolderRadioButton.ForeColor = Color.Gray;
+                this.ZipOtherFolderListBox.Enabled = false;
+                this.ZipOtherFolderButton.Enabled = false;
+            }
+        }
+
+        private void ZipOtherFolderButton_Click(object sender, EventArgs e)
+        {
+            CommonOpenFileDialog commonFileDialog = new CommonOpenFileDialog();
+            commonFileDialog.IsFolderPicker = true;
+            commonFileDialog.InitialDirectory = Path.GetDirectoryName(SelectFileListView.Items[0].SubItems[1].Text);
+            if (commonFileDialog.ShowDialog() == CommonFileDialogResult.Ok)
+            {
+                ZipOtherFolderListBox.Items.Clear();
+                ZipOtherFolderListBox.Items.Add(commonFileDialog.FileName);
+            }
+        }
+
+        private void CreateZipFolderCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if(CreateZipFolderCheckBox.Checked == true)
+            {
+                this.CreateZipFolderCheckBox.ForeColor= Color.Black;
+            }
+            else
+            {
+                this.CreateZipFolderCheckBox.ForeColor = Color.Gray;
+            }
+        }
     }
 }
