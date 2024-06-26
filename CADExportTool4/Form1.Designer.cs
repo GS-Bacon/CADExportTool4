@@ -214,6 +214,7 @@
             // 
             // ZipLowerFolderComboBox
             // 
+            this.ZipLowerFolderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ZipLowerFolderComboBox.Enabled = false;
             this.ZipLowerFolderComboBox.FormattingEnabled = true;
             this.ZipLowerFolderComboBox.Location = new System.Drawing.Point(26, 62);
@@ -349,6 +350,7 @@
             // 
             // LowerFolderComboBox
             // 
+            this.LowerFolderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.LowerFolderComboBox.Enabled = false;
             this.LowerFolderComboBox.FormattingEnabled = true;
             this.LowerFolderComboBox.Location = new System.Drawing.Point(21, 75);

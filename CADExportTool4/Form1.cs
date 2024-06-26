@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static System.Net.WebRequestMethods;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace CADExportTool4
 {
@@ -386,6 +387,11 @@ namespace CADExportTool4
             ExportOption options = GetExportOpostion();
             if (options == null) return;
         }
+
+        /// <summary>
+        /// オプションを転記してExportOptionとして返す
+        /// </summary>
+        /// <returns></returns>
         private ExportOption GetExportOpostion()
         {
             #region 拡張子選択
@@ -419,7 +425,10 @@ namespace CADExportTool4
                 return null;
             }
             #endregion
-
+            foreach (ListViewItem filepath in this.SelectFileListView.Items)
+            {
+                options.FileList.Add(filepath.SubItems[1].ToString());
+            }
             #region 出力フォルダを指定する
             //同じフォルダの場合
             if (this.SameFolderRadioButton.Checked)
@@ -439,7 +448,7 @@ namespace CADExportTool4
                 }
                 else
                 {
-                    options.ExportFolderPath = Path.GetDirectoryName(this.SelectFileListView.Items[1].SubItems[1].Text) + "\\" + LowerFolderComboBox.Items[LowerFolderComboBox.SelectedIndex].ToString();
+                    options.ExportFolderPath = Path.GetDirectoryName(this.SelectFileListView.Items[0].SubItems[1].Text) + "\\" + LowerFolderComboBox.Items[LowerFolderComboBox.SelectedIndex].ToString();
                 }
             }
             //他のフォルダを指定する場合
@@ -504,7 +513,7 @@ namespace CADExportTool4
                         }
                         else
                         {
-                            folder = Path.GetDirectoryName(this.SelectFileListView.Items[1].SubItems[1].Text) + "\\" + ZipLowerFolderComboBox.Items[ZipLowerFolderComboBox.SelectedIndex].ToString();
+                            folder = Path.GetDirectoryName(this.SelectFileListView.Items[0].SubItems[1].Text) + "\\" + ZipLowerFolderComboBox.Items[ZipLowerFolderComboBox.SelectedIndex].ToString();
                         }
                     }
                     else if (this.ZipOtherFolderRadioButton.Checked)
@@ -522,6 +531,7 @@ namespace CADExportTool4
                     if (this.CreateZipFolderCheckBox.Checked)
                     {
                         folder = folder + "\\zip";
+                        Directory.CreateDirectory(folder);
                     }
                     options.ZipFolderPath = folder;
                 }

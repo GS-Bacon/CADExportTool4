@@ -16,6 +16,8 @@ namespace CADExportTool4
         /// </summary>
         public static string[] FileExtensions = { ".SLDPRT", ".SLDDRW", ".SLDASM" };
 
+        public List<string> FileList = new List<string>();
+
         public ExtensionOption pdf = new ExtensionOption() { FolderPath = new List<string>{ "pdf" } };
         public ExtensionOption dxf = new ExtensionOption() { FolderPath = new List<string> { "dxf" } };
         public ExtensionOption igs = new ExtensionOption() { FolderPath = new List<string> { "igs", "iges" } };
