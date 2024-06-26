@@ -73,7 +73,7 @@ namespace CADExportTool4
                 {
                     //ExportOptionで指定した拡張子以外のファイルは弾く
                     string FileExtesion = Path.GetExtension(filename);
-                    if (CADExportTool4.ExportOption.ExportExtensions.Contains(FileExtesion))
+                    if (CADExportTool4.ExportOption.FileExtensions.Contains(FileExtesion))
                     {
                         string[] item = { Path.GetFileName(filename), filename, FileExtesion };
                         var Listitem = new ListViewItem(item);
@@ -267,6 +267,8 @@ namespace CADExportTool4
             }
         }
         #endregion
+
+        #region 後処理オプション
         private void SeparateByExtensionCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             if (this.SeparateByExtensionCheckBox.Checked == true)
@@ -375,5 +377,6 @@ namespace CADExportTool4
                 this.CreateZipFolderCheckBox.ForeColor = Color.Gray;
             }
         }
+        #endregion
     }
 }

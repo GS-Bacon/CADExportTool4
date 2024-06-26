@@ -67,7 +67,7 @@
             this.StartExportGroupBox = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label4 = new System.Windows.Forms.Label();
-            this.button5 = new System.Windows.Forms.Button();
+            this.StartExportButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.SelectFileOpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.ExoportOptionGroupBox.SuspendLayout();
@@ -475,7 +475,7 @@
             // 
             this.StartExportGroupBox.Controls.Add(this.progressBar1);
             this.StartExportGroupBox.Controls.Add(this.label4);
-            this.StartExportGroupBox.Controls.Add(this.button5);
+            this.StartExportGroupBox.Controls.Add(this.StartExportButton);
             this.StartExportGroupBox.Controls.Add(this.button4);
             this.StartExportGroupBox.Enabled = false;
             this.StartExportGroupBox.Location = new System.Drawing.Point(419, 671);
@@ -501,14 +501,14 @@
             this.label4.TabIndex = 4;
             this.label4.Text = "label1";
             // 
-            // button5
+            // StartExportButton
             // 
-            this.button5.Location = new System.Drawing.Point(286, 12);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(90, 28);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "変換開始";
-            this.button5.UseVisualStyleBackColor = true;
+            this.StartExportButton.Location = new System.Drawing.Point(286, 12);
+            this.StartExportButton.Name = "StartExportButton";
+            this.StartExportButton.Size = new System.Drawing.Size(90, 28);
+            this.StartExportButton.TabIndex = 3;
+            this.StartExportButton.Text = "変換開始";
+            this.StartExportButton.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
@@ -572,7 +572,7 @@
         private System.Windows.Forms.GroupBox StartExportGroupBox;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button StartExportButton;
         private System.Windows.Forms.Button button4;
         public System.Windows.Forms.ColumnHeader Extension;
         private System.Windows.Forms.GroupBox PostprocessingOptionGroupBox;
