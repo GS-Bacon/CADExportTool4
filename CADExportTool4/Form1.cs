@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static System.Net.WebRequestMethods;
+using System.Diagnostics;
 
 namespace CADExportTool4
 {
@@ -209,6 +210,7 @@ namespace CADExportTool4
 
         private void LowerFolderRadioButton_CheckedChanged(object sender, EventArgs e)
         {
+            LowerFolderWaringLabel.ResetText();
             if (this.LowerFolderRadioButton.Checked == true)
             {
                 this.LowerFolderRadioButton.ForeColor = Color.Black;
@@ -340,9 +342,9 @@ namespace CADExportTool4
 
         private void ZipOtherFolderRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            if(this.ZipOtherFolderRadioButton.Checked == true)
+            if (this.ZipOtherFolderRadioButton.Checked == true)
             {
-                this.ZipOtherFolderRadioButton.ForeColor= Color.Black;
+                this.ZipOtherFolderRadioButton.ForeColor = Color.Black;
                 this.ZipOtherFolderListBox.Enabled = true;
                 this.ZipOtherFolderButton.Enabled = true;
             }
@@ -368,9 +370,9 @@ namespace CADExportTool4
 
         private void CreateZipFolderCheckBox_CheckedChanged(object sender, EventArgs e)
         {
-            if(CreateZipFolderCheckBox.Checked == true)
+            if (CreateZipFolderCheckBox.Checked == true)
             {
-                this.CreateZipFolderCheckBox.ForeColor= Color.Black;
+                this.CreateZipFolderCheckBox.ForeColor = Color.Black;
             }
             else
             {
@@ -378,5 +380,158 @@ namespace CADExportTool4
             }
         }
         #endregion
+
+        private void StartExportButton_Click(object sender, EventArgs e)
+        {
+            ExportOption options = GetExportOpostion();
+            if (options == null) return;
+        }
+        private ExportOption GetExportOpostion()
+        {
+            #region 拡張子選択
+            ExportOption options = new ExportOption();
+            options.pdf.check = this.PDFCheckBox.Checked;
+            options.dxf.check = this.DXFCheckBox.Checked;
+            options.igs.check = this.IGSCheckBox.Checked;
+            options.step.check = this.StepCheckBox.Checked;
+            options.stl.check = this.STLCheckBox.Checked;
+
+            List<ExtensionOption> check_extension = new List<ExtensionOption>(){
+                options.pdf,
+                options.dxf,
+                options.igs,
+                options.step,
+                options.stl,
+                };
+
+            bool extenSionFlag = false;
+            foreach (ExtensionOption extension in check_extension)
+            {
+                if (extension.check == true)
+                {
+                    extenSionFlag = true;
+                    break;
+                }
+            }
+            if (!extenSionFlag)
+            {
+                MessageBox.Show("出力する拡張子を選択してください");
+                return null;
+            }
+            #endregion
+
+            #region 出力フォルダを指定する
+            //同じフォルダの場合
+            if (this.SameFolderRadioButton.Checked)
+            {
+                //一番上のファイルのフォルダを指定する
+                options.ExportFolderPath = Path.GetDirectoryName(this.SelectFileListView.Items[0].SubItems[1].Text);
+            }
+            //選択した直下フォルダを指定する場合
+            else if (this.LowerFolderRadioButton.Checked)
+            {
+                //未選択の場合は警告を出す
+                if (LowerFolderComboBox.SelectedIndex == -1)
+                {
+                    MessageBox.Show("フォルダを選択してください");
+                    LowerFolderWaringLabel.Text = "フォルダを選択してください";
+                    return null;
+                }
+                else
+                {
+                    options.ExportFolderPath = Path.GetDirectoryName(this.SelectFileListView.Items[1].SubItems[1].Text) + "\\" + LowerFolderComboBox.Items[LowerFolderComboBox.SelectedIndex].ToString();
+                }
+            }
+            //他のフォルダを指定する場合
+            else if (this.OtherFolderRadioButton.Checked)
+            {
+                //未選択の場合は警告を出す
+                if (this.OtherFolderListBox.Items.Count == 0)
+                {
+                    MessageBox.Show("フォルダを選択してください");
+                    OtherFolderWarningLabel.Text = "フォルダを選択してください";
+                    return null;
+                }
+                else
+                {
+                    options.ExportFolderPath = OtherFolderListBox.Items[0].ToString();
+                }
+            }
+            #endregion
+
+            //拡張子ごとにフォルダを分ける
+            options.SeparatebyExtension = this.SeparateByExtensionCheckBox.Checked;
+            if (options.SeparatebyExtension)
+            {
+                foreach (ExtensionOption ce in check_extension)
+                {
+                    bool folderflag = false;
+                    foreach (string folderpath in ce.FolderPath)
+                    {
+                        //フォルダが存在していたらフォルダはつくらない
+                        if (System.IO.Directory.Exists(options.ExportFolderPath + "\\" + folderpath))
+                        {
+                            folderflag = true;
+                            break;
+                        }
+                    }
+                    if (!folderflag)
+                    {
+                        if (ce.check)
+                        {
+                            ce.FolderPath = new List<string> { options.ExportFolderPath + "\\" + ce.FolderPath[0] };
+                            Directory.CreateDirectory(ce.FolderPath[0]);
+                        }
+                    }
+                }
+
+                #region Zip出力オプション
+                options.CreateZip = this.ZipOptionCheckBox.Checked;
+                options.CreateZipFolder = this.CreateZipFolderCheckBox.Checked;
+                if (options.CreateZip)
+                {
+                    string folder = "";
+                    if (this.ZipSameFolederRadioButton.Checked)
+                    {
+                        folder = options.ExportFolderPath;
+                    }
+                    else if (this.ZipLowerFolderRadioButton.Checked)
+                    {
+                        if (ZipLowerFolderComboBox.SelectedIndex == -1)
+                        {
+                            MessageBox.Show("Zipファイルを保存するフォルダを選択してください");
+                            return null;
+                        }
+                        else
+                        {
+                            folder = Path.GetDirectoryName(this.SelectFileListView.Items[1].SubItems[1].Text) + "\\" + ZipLowerFolderComboBox.Items[ZipLowerFolderComboBox.SelectedIndex].ToString();
+                        }
+                    }
+                    else if (this.ZipOtherFolderRadioButton.Checked)
+                    {
+                        if (this.ZipOtherFolderListBox.Items.Count == 0)
+                        {
+                            MessageBox.Show("Zipファイルを保存するフォルダを選択してください");
+                            return null;
+                        }
+                        else
+                        {
+                            folder = ZipOtherFolderListBox.Items[0].ToString();
+                        }
+                    }
+                    if (this.CreateZipFolderCheckBox.Checked)
+                    {
+                        folder = folder + "\\zip";
+                    }
+                    options.ZipFolderPath = folder;
+                }
+
+                #endregion
+                Debug.WriteLine("ExportPath:" + options.ExportFolderPath.ToString());
+                Debug.WriteLine("ZipFolderPath");
+            }
+            return options;
+
+        }
     }
 }

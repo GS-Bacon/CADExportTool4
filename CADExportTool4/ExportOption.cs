@@ -14,13 +14,13 @@ namespace CADExportTool4
         /// <summary>
         /// 選択できるファイルの拡張子一覧
         /// </summary>
-        public static string[] FileExtensions  = {".SLDPRT",".SLDDRW", ".SLDASM" };
+        public static string[] FileExtensions = { ".SLDPRT", ".SLDDRW", ".SLDASM" };
 
-        public PDF pdf;
-        public DXF dXF;
-        public IGS igs;
-        public STEP step;
-        public STL stl;
+        public ExtensionOption pdf = new ExtensionOption() { FolderPath = new List<string>{ "pdf" } };
+        public ExtensionOption dxf = new ExtensionOption() { FolderPath = new List<string> { "dxf" } };
+        public ExtensionOption igs = new ExtensionOption() { FolderPath = new List<string> { "igs", "iges" } };
+        public ExtensionOption step = new ExtensionOption() { FolderPath = new List<string> { "step" } };
+        public ExtensionOption stl = new ExtensionOption() { FolderPath = new List<string> { "stl" } };
 
         /// <summary>
         /// エクスポートするフォルダのフルパス
@@ -48,37 +48,9 @@ namespace CADExportTool4
         public string ZipFolderPath;
     }
 
-    /// <summary>
-    /// PDF出力オプション
-    /// </summary>
-    class PDF
+    class ExtensionOption
     {
-        public PDF() { }
-        public static string[] FolderPath = { "pdf"};
-        public bool check=false;
-    }
-    class DXF
-    {
-        public DXF() { }
-        public static string[] FolderPath = { "dxf"};
         public bool check = false;
-    }
-    class IGS
-    {
-        public IGS() { }
-        public static string[] FolderPath = { "igs", "iges" };
-        public bool check = false;
-    }
-    class STEP
-    {
-        public STEP() { }
-        public static string[] FolderPath = { "step"};
-        public bool check = false;
-    }
-    class STL
-    {
-        public STL() { }
-        public static string[] FolderPath = { "stl"};
-        public bool check = false;
+        public List<string> FolderPath;
     }
 }

@@ -70,6 +70,8 @@
             this.StartExportButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.SelectFileOpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.LowerFolderWaringLabel = new System.Windows.Forms.Label();
+            this.OtherFolderWarningLabel = new System.Windows.Forms.Label();
             this.ExoportOptionGroupBox.SuspendLayout();
             this.PostprocessingOptionGroupBox.SuspendLayout();
             this.ZipOptionGroupBox.SuspendLayout();
@@ -280,6 +282,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.OtherFolderWarningLabel);
+            this.groupBox2.Controls.Add(this.LowerFolderWaringLabel);
             this.groupBox2.Controls.Add(this.OtherFolderListBox);
             this.groupBox2.Controls.Add(this.SameFolderWarningLabel);
             this.groupBox2.Controls.Add(this.SameFolderLabel);
@@ -509,6 +513,7 @@
             this.StartExportButton.TabIndex = 3;
             this.StartExportButton.Text = "変換開始";
             this.StartExportButton.UseVisualStyleBackColor = true;
+            this.StartExportButton.Click += new System.EventHandler(this.StartExportButton_Click);
             // 
             // button4
             // 
@@ -522,6 +527,24 @@
             // SelectFileOpenFileDialog1
             // 
             this.SelectFileOpenFileDialog1.FileName = "openFileDialog1";
+            // 
+            // LowerFolderWaringLabel
+            // 
+            this.LowerFolderWaringLabel.AutoSize = true;
+            this.LowerFolderWaringLabel.ForeColor = System.Drawing.Color.Red;
+            this.LowerFolderWaringLabel.Location = new System.Drawing.Point(196, 56);
+            this.LowerFolderWaringLabel.Name = "LowerFolderWaringLabel";
+            this.LowerFolderWaringLabel.Size = new System.Drawing.Size(0, 12);
+            this.LowerFolderWaringLabel.TabIndex = 6;
+            // 
+            // OtherFolderWarningLabel
+            // 
+            this.OtherFolderWarningLabel.AutoSize = true;
+            this.OtherFolderWarningLabel.ForeColor = System.Drawing.Color.Red;
+            this.OtherFolderWarningLabel.Location = new System.Drawing.Point(149, 104);
+            this.OtherFolderWarningLabel.Name = "OtherFolderWarningLabel";
+            this.OtherFolderWarningLabel.Size = new System.Drawing.Size(0, 12);
+            this.OtherFolderWarningLabel.TabIndex = 6;
             // 
             // Form1
             // 
@@ -596,6 +619,8 @@
         private System.Windows.Forms.GroupBox ZipOptionGroupBox;
         private System.Windows.Forms.OpenFileDialog SelectFileOpenFileDialog1;
         private System.Windows.Forms.CheckBox CreateZipFolderCheckBox;
+        private System.Windows.Forms.Label OtherFolderWarningLabel;
+        private System.Windows.Forms.Label LowerFolderWaringLabel;
     }
 }
 
