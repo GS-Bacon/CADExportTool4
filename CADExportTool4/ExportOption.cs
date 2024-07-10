@@ -15,44 +15,48 @@ namespace CADExportTool4
         /// 選択できるファイルの拡張子一覧
         /// </summary>
         public static string[] FileExtensions = { ".SLDPRT", ".SLDDRW", ".SLDASM" };
-
-        public List<string> FileList = new List<string>();
-
-        public ExtensionOption pdf = new ExtensionOption() { FolderPath = new List<string>{ "pdf" } };
-        public ExtensionOption dxf = new ExtensionOption() { FolderPath = new List<string> { "dxf" } };
-        public ExtensionOption igs = new ExtensionOption() { FolderPath = new List<string> { "igs", "iges" } };
-        public ExtensionOption step = new ExtensionOption() { FolderPath = new List<string> { "step" } };
-        public ExtensionOption stl = new ExtensionOption() { FolderPath = new List<string> { "stl" } };
-
-        /// <summary>
-        /// エクスポートするフォルダのフルパス
-        /// </summary>
-        public string ExportFolderPath;
-
-        /// <summary>
-        /// 部品名ごとにフォルダを分けるかどうか
-        /// </summary>
-        public bool SeparatebyExtension = false;
-
-        /// <summary>
-        /// Zipにまとめるかどうか
-        /// </summary>
-        public bool CreateZip = false;
-
-        /// <summary>
-        /// "zip"フォルダを作るかどうか
-        /// </summary>
-        public bool CreateZipFolder = false;
-
-        /// <summary>
-        /// Zipフォルダフルパス
-        /// </summary>
-        public string ZipFolderPath;
+        public List<Fileoptions> Fileoptions = new List<Fileoptions>();
+        public Dictionary<string,ExtensionVariants> exoption = new Dictionary<string, ExtensionVariants>(){
+            {"pdf",new ExtensionVariants() {name="pdf",extensions=new List<string>() {"pdf"} ,parent_ex=new List<string>(){".SLDDRW" } } },
+            {"dxf",new ExtensionVariants() {name="dxf",extensions=new List<string>() {"dxf"} ,parent_ex=new List<string>(){".SLDDRW" }} },
+            {"igs",new ExtensionVariants() {name="igs",extensions=new List<string>() {"igs","iges"},parent_ex=new List<string>(){".SLDPRT","SLDASM" } } },
+            {"step",new ExtensionVariants() {name="step",extensions=new List<string>() {"step","stp"},parent_ex=new List<string>(){ ".SLDPRT", "SLDASM" } } },
+            {"stl",new ExtensionVariants() {name="stl",extensions=new List<string>() {"stl"} ,parent_ex=new List<string>(){".SLDPRT", "SLDASM" }} },
+            };
+        public HashSet<string> ZipFilePathList= new HashSet<string>();
     }
 
-    class ExtensionOption
+    class Fileoptions
     {
-        public bool check = false;
-        public List<string> FolderPath;
+        /// <summary>
+        /// 拡張子なしファイル名
+        /// </summary>
+        public string filename { get; set; } = "";
+
+        /// <summary>
+        /// 元ファイルのパス
+        /// </summary>
+        public string itempath { get; set; } = "";
+
+        /// <summary>
+        /// 出力後のファイル一覧
+        /// </summary>
+        public List<string> exportpath { get; set; }= new List<string>();
+
+        /// <summary>
+        /// Zipフォルダパス
+        /// </summary>
+        public string zippath { get; set; } = "";
+    }
+    class ExtensionVariants
+    {
+        /// <summary>
+        /// 名前
+        /// </summary>
+        public string name;
+        public List<string> extensions;
+        public bool check=false;
+        public string folderpath="";
+        public List<string> parent_ex;
     }
 }

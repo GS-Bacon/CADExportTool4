@@ -58,7 +58,7 @@
             this.PartExportOptionGroupBox = new System.Windows.Forms.GroupBox();
             this.STLCheckBox = new System.Windows.Forms.CheckBox();
             this.IGSCheckBox = new System.Windows.Forms.CheckBox();
-            this.StepCheckBox = new System.Windows.Forms.CheckBox();
+            this.STEPCheckBox = new System.Windows.Forms.CheckBox();
             this.DrawExportOptionGroupBox = new System.Windows.Forms.GroupBox();
             this.DXFCheckBox = new System.Windows.Forms.CheckBox();
             this.PDFCheckBox = new System.Windows.Forms.CheckBox();
@@ -387,7 +387,7 @@
             // 
             this.PartExportOptionGroupBox.Controls.Add(this.STLCheckBox);
             this.PartExportOptionGroupBox.Controls.Add(this.IGSCheckBox);
-            this.PartExportOptionGroupBox.Controls.Add(this.StepCheckBox);
+            this.PartExportOptionGroupBox.Controls.Add(this.STEPCheckBox);
             this.PartExportOptionGroupBox.Location = new System.Drawing.Point(7, 104);
             this.PartExportOptionGroupBox.Name = "PartExportOptionGroupBox";
             this.PartExportOptionGroupBox.Size = new System.Drawing.Size(466, 46);
@@ -417,13 +417,13 @@
             // 
             // StepCheckBox
             // 
-            this.StepCheckBox.AutoSize = true;
-            this.StepCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.StepCheckBox.Name = "StepCheckBox";
-            this.StepCheckBox.Size = new System.Drawing.Size(48, 16);
-            this.StepCheckBox.TabIndex = 0;
-            this.StepCheckBox.Text = ".step";
-            this.StepCheckBox.UseVisualStyleBackColor = true;
+            this.STEPCheckBox.AutoSize = true;
+            this.STEPCheckBox.Location = new System.Drawing.Point(6, 19);
+            this.STEPCheckBox.Name = "StepCheckBox";
+            this.STEPCheckBox.Size = new System.Drawing.Size(48, 16);
+            this.STEPCheckBox.TabIndex = 0;
+            this.STEPCheckBox.Text = ".step";
+            this.STEPCheckBox.UseVisualStyleBackColor = true;
             // 
             // DrawExportOptionGroupBox
             // 
@@ -593,7 +593,7 @@
         private System.Windows.Forms.GroupBox PartExportOptionGroupBox;
         private System.Windows.Forms.CheckBox STLCheckBox;
         private System.Windows.Forms.CheckBox IGSCheckBox;
-        private System.Windows.Forms.CheckBox StepCheckBox;
+        private System.Windows.Forms.CheckBox STEPCheckBox;
         private System.Windows.Forms.GroupBox StartExportGroupBox;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Label label4;
