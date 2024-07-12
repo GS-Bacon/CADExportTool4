@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.SelectFileListView = new System.Windows.Forms.ListView();
             this.filename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.path = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -562,8 +563,9 @@
             this.Controls.Add(this.StartExportGroupBox);
             this.Controls.Add(this.ExoportOptionGroupBox);
             this.Controls.Add(this.SelectFileGroupBox);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "CADExportTool4";
             this.ExoportOptionGroupBox.ResumeLayout(false);
             this.PostprocessingOptionGroupBox.ResumeLayout(false);
             this.PostprocessingOptionGroupBox.PerformLayout();
