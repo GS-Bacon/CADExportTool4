@@ -12,6 +12,7 @@ using Microsoft.WindowsAPICodePack.Dialogs;
 using static System.Net.WebRequestMethods;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace CADExportTool4
 {
@@ -382,14 +383,51 @@ namespace CADExportTool4
         }
         #endregion
 
+        public delegate void LabelText(string text);
+        public void SetLabel(String label)
+        {
+            this.TaskNameLabel.Text = label;
+        }
+        public delegate void TaskCount(int counter);
+        public void PlusCounter(int counter)
+        {
+            this.TaskProgressBar.Value = counter;
+        }
+        public delegate void OnOff(bool onoff);
+        public void OnOffSwitch(bool onoff)
+        {
+            this.SelectFileGroupBox.Enabled = onoff;
+            this.ExoportOptionGroupBox.Enabled = onoff;
+        }
+        Thread thread1 = null;
         private void StartExportButton_Click(object sender, EventArgs e)
         {
             ExportOption options = GetExportOpostion();
+
             if (options == null) return;
             else
             {
-                ExportCADFile ec = new ExportCADFile(options);
-                ec.Export();
+                int taskcounter = 0;
+                foreach (var file in options.Fileoptions)
+                {
+                    taskcounter += file.exportpath.Count;
+                    if (file.zippath != "")
+                    {
+                        taskcounter++;
+                    }
+                }
+                TaskProgressBar.Maximum = taskcounter + 1;
+                TaskProgressBar.Minimum = 0;
+                TaskProgressBar.Value = 0;
+                
+                TaskProgressBar.Value = 1;
+                TaskNameLabel.Text = $"{TaskProgressBar.Value}/{TaskProgressBar.Maximum} 開始処理中";
+                SelectFileGroupBox.Enabled = false;
+                ExoportOptionGroupBox.Enabled = false;
+                ExportCADFile ec = new ExportCADFile(options, this);
+                thread1= new Thread(new ThreadStart(ec.Export));
+                thread1.Start();
+
             }
         }
 
@@ -536,6 +574,8 @@ namespace CADExportTool4
                     Directory.CreateDirectory(folder);
                 }
                 ZipFolderPath = folder;
+                options.ZipFolderPath = ZipFolderPath;
+
             }
 
             #endregion
@@ -571,7 +611,7 @@ namespace CADExportTool4
                     options.Fileoptions.Add(fileoptions);
                 }
             }
-            foreach(Fileoptions filepath in options.Fileoptions)
+            foreach (Fileoptions filepath in options.Fileoptions)
             {
                 options.ZipFilePathList.Add(filepath.zippath);
             }
@@ -580,6 +620,40 @@ namespace CADExportTool4
             Debug.WriteLine("ZipFolderPath");
             return options;
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PDFCheckBox.Checked = false;
+            DXFCheckBox.Checked = false;
+            IGSCheckBox.Checked = false;
+            STEPCheckBox.Checked = false;
+            STLCheckBox.Checked = false;
+            SameFolderLabel.Text = string.Empty;
+            LowerFolderComboBox.Items.Clear();
+            ZipLowerFolderComboBox.Items.Clear();
+            ZipOtherFolderListBox.Items.Clear();
+        }
+
+        private void TaskNameLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("変換処理を中断しますか？", "中断ダイアログ", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                thread1.Interrupt();
+                thread1.Join();
+                TaskNameLabel.Text = "処理を中断しました";
+                TaskProgressBar.Value = 0;
+                TaskProgressBar.Update();
+                SelectFileGroupBox.Enabled = true;
+                ExoportOptionGroupBox.Enabled = true;
+                TaskProgressBar.Value = 0;
+            }
         }
     }
 }

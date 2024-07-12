@@ -47,6 +47,8 @@
             this.ZipOptionCheckBox = new System.Windows.Forms.CheckBox();
             this.SeparateByExtensionCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.OtherFolderWarningLabel = new System.Windows.Forms.Label();
+            this.LowerFolderWaringLabel = new System.Windows.Forms.Label();
             this.OtherFolderListBox = new System.Windows.Forms.ListBox();
             this.SameFolderWarningLabel = new System.Windows.Forms.Label();
             this.SameFolderLabel = new System.Windows.Forms.Label();
@@ -65,13 +67,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.SelectFileGroupBox = new System.Windows.Forms.GroupBox();
             this.StartExportGroupBox = new System.Windows.Forms.GroupBox();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label4 = new System.Windows.Forms.Label();
+            this.TaskProgressBar = new System.Windows.Forms.ProgressBar();
+            this.TaskNameLabel = new System.Windows.Forms.Label();
             this.StartExportButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.SelectFileOpenFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.LowerFolderWaringLabel = new System.Windows.Forms.Label();
-            this.OtherFolderWarningLabel = new System.Windows.Forms.Label();
             this.ExoportOptionGroupBox.SuspendLayout();
             this.PostprocessingOptionGroupBox.SuspendLayout();
             this.ZipOptionGroupBox.SuspendLayout();
@@ -272,6 +272,8 @@
             // SeparateByExtensionCheckBox
             // 
             this.SeparateByExtensionCheckBox.AutoSize = true;
+            this.SeparateByExtensionCheckBox.Checked = true;
+            this.SeparateByExtensionCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
             this.SeparateByExtensionCheckBox.ForeColor = System.Drawing.Color.Gray;
             this.SeparateByExtensionCheckBox.Location = new System.Drawing.Point(7, 19);
             this.SeparateByExtensionCheckBox.Name = "SeparateByExtensionCheckBox";
@@ -299,6 +301,24 @@
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "出力フォルダ選択";
+            // 
+            // OtherFolderWarningLabel
+            // 
+            this.OtherFolderWarningLabel.AutoSize = true;
+            this.OtherFolderWarningLabel.ForeColor = System.Drawing.Color.Red;
+            this.OtherFolderWarningLabel.Location = new System.Drawing.Point(149, 104);
+            this.OtherFolderWarningLabel.Name = "OtherFolderWarningLabel";
+            this.OtherFolderWarningLabel.Size = new System.Drawing.Size(0, 12);
+            this.OtherFolderWarningLabel.TabIndex = 6;
+            // 
+            // LowerFolderWaringLabel
+            // 
+            this.LowerFolderWaringLabel.AutoSize = true;
+            this.LowerFolderWaringLabel.ForeColor = System.Drawing.Color.Red;
+            this.LowerFolderWaringLabel.Location = new System.Drawing.Point(196, 56);
+            this.LowerFolderWaringLabel.Name = "LowerFolderWaringLabel";
+            this.LowerFolderWaringLabel.Size = new System.Drawing.Size(0, 12);
+            this.LowerFolderWaringLabel.TabIndex = 6;
             // 
             // OtherFolderListBox
             // 
@@ -415,11 +435,11 @@
             this.IGSCheckBox.Text = ".igs";
             this.IGSCheckBox.UseVisualStyleBackColor = true;
             // 
-            // StepCheckBox
+            // STEPCheckBox
             // 
             this.STEPCheckBox.AutoSize = true;
             this.STEPCheckBox.Location = new System.Drawing.Point(6, 19);
-            this.STEPCheckBox.Name = "StepCheckBox";
+            this.STEPCheckBox.Name = "STEPCheckBox";
             this.STEPCheckBox.Size = new System.Drawing.Size(48, 16);
             this.STEPCheckBox.TabIndex = 0;
             this.STEPCheckBox.Text = ".step";
@@ -464,6 +484,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "オプションリセット";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // SelectFileGroupBox
             // 
@@ -479,8 +500,8 @@
             // 
             // StartExportGroupBox
             // 
-            this.StartExportGroupBox.Controls.Add(this.progressBar1);
-            this.StartExportGroupBox.Controls.Add(this.label4);
+            this.StartExportGroupBox.Controls.Add(this.TaskProgressBar);
+            this.StartExportGroupBox.Controls.Add(this.TaskNameLabel);
             this.StartExportGroupBox.Controls.Add(this.StartExportButton);
             this.StartExportGroupBox.Controls.Add(this.button4);
             this.StartExportGroupBox.Enabled = false;
@@ -489,23 +510,24 @@
             this.StartExportGroupBox.Size = new System.Drawing.Size(479, 81);
             this.StartExportGroupBox.TabIndex = 4;
             this.StartExportGroupBox.TabStop = false;
-            this.StartExportGroupBox.Text = "groupBox4";
+            this.StartExportGroupBox.Text = "変化処理";
             // 
-            // progressBar1
+            // TaskProgressBar
             // 
-            this.progressBar1.Location = new System.Drawing.Point(7, 46);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(466, 23);
-            this.progressBar1.TabIndex = 5;
+            this.TaskProgressBar.Location = new System.Drawing.Point(7, 46);
+            this.TaskProgressBar.Name = "TaskProgressBar";
+            this.TaskProgressBar.Size = new System.Drawing.Size(466, 23);
+            this.TaskProgressBar.TabIndex = 5;
             // 
-            // label4
+            // TaskNameLabel
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(35, 12);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "label1";
+            this.TaskNameLabel.AutoSize = true;
+            this.TaskNameLabel.Location = new System.Drawing.Point(6, 28);
+            this.TaskNameLabel.Name = "TaskNameLabel";
+            this.TaskNameLabel.Size = new System.Drawing.Size(50, 12);
+            this.TaskNameLabel.TabIndex = 4;
+            this.TaskNameLabel.Text = "処理待ち";
+            this.TaskNameLabel.Click += new System.EventHandler(this.TaskNameLabel_Click);
             // 
             // StartExportButton
             // 
@@ -525,28 +547,11 @@
             this.button4.TabIndex = 3;
             this.button4.Text = "キャンセル";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // SelectFileOpenFileDialog1
             // 
             this.SelectFileOpenFileDialog1.FileName = "openFileDialog1";
-            // 
-            // LowerFolderWaringLabel
-            // 
-            this.LowerFolderWaringLabel.AutoSize = true;
-            this.LowerFolderWaringLabel.ForeColor = System.Drawing.Color.Red;
-            this.LowerFolderWaringLabel.Location = new System.Drawing.Point(196, 56);
-            this.LowerFolderWaringLabel.Name = "LowerFolderWaringLabel";
-            this.LowerFolderWaringLabel.Size = new System.Drawing.Size(0, 12);
-            this.LowerFolderWaringLabel.TabIndex = 6;
-            // 
-            // OtherFolderWarningLabel
-            // 
-            this.OtherFolderWarningLabel.AutoSize = true;
-            this.OtherFolderWarningLabel.ForeColor = System.Drawing.Color.Red;
-            this.OtherFolderWarningLabel.Location = new System.Drawing.Point(149, 104);
-            this.OtherFolderWarningLabel.Name = "OtherFolderWarningLabel";
-            this.OtherFolderWarningLabel.Size = new System.Drawing.Size(0, 12);
-            this.OtherFolderWarningLabel.TabIndex = 6;
             // 
             // Form1
             // 
@@ -595,8 +600,8 @@
         private System.Windows.Forms.CheckBox IGSCheckBox;
         private System.Windows.Forms.CheckBox STEPCheckBox;
         private System.Windows.Forms.GroupBox StartExportGroupBox;
-        private System.Windows.Forms.ProgressBar progressBar1;
-        private System.Windows.Forms.Label label4;
+        public System.Windows.Forms.ProgressBar TaskProgressBar;
+        public System.Windows.Forms.Label TaskNameLabel;
         private System.Windows.Forms.Button StartExportButton;
         private System.Windows.Forms.Button button4;
         public System.Windows.Forms.ColumnHeader Extension;

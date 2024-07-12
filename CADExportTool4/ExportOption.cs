@@ -23,6 +23,7 @@ namespace CADExportTool4
             {"step",new ExtensionVariants() {name="step",extensions=new List<string>() {"step","stp"},parent_ex=new List<string>(){ ".SLDPRT", "SLDASM" } } },
             {"stl",new ExtensionVariants() {name="stl",extensions=new List<string>() {"stl"} ,parent_ex=new List<string>(){".SLDPRT", "SLDASM" }} },
             };
+        public string ZipFolderPath = "";
         public HashSet<string> ZipFilePathList= new HashSet<string>();
     }
 
