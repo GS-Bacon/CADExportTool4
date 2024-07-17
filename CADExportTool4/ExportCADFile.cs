@@ -67,7 +67,7 @@ namespace CADExportTool4
             }
             catch (ThreadInterruptedException ex)
             {
-               
+
             }
         }
         private ModelDoc2 OpenDrawCADFile(string filePath)

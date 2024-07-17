@@ -398,11 +398,13 @@ namespace CADExportTool4
         {
             this.SelectFileGroupBox.Enabled = onoff;
             this.ExoportOptionGroupBox.Enabled = onoff;
+            this.button4.Enabled = !onoff;
         }
         Thread thread1 = null;
         private void StartExportButton_Click(object sender, EventArgs e)
         {
             ExportOption options = GetExportOpostion();
+            this.button4.Enabled = true;
 
             if (options == null) return;
             else
@@ -653,6 +655,7 @@ namespace CADExportTool4
                 SelectFileGroupBox.Enabled = true;
                 ExoportOptionGroupBox.Enabled = true;
                 TaskProgressBar.Value = 0;
+                this.button4.Enabled=false;
             }
         }
     }
