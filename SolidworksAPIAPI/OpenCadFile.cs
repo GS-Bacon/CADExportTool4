@@ -36,7 +36,7 @@ namespace SolidworksAPIAPI
             }
         }
 
-        private PartDoc? OpenPartCADFile(string filePath)
+        public static PartDoc? OpenPartCadFile(string filePath)
         {
             SldWorks SolidworksApp = new SldWorks();
             try

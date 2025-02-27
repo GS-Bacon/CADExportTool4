@@ -6,17 +6,8 @@ using System.Threading.Tasks;
 
 namespace SolidworksAPIAPI
 {
-    public class PdfConverter : IConverter
+    internal class PdfConverter : DrawConverter
     {
-        public string InputExtension { get; } = ".pdf";
 
-        public List<string> ConvertExtensions { get; } = [".SLDDRW" ];
-
-        public string OutputFolderPath { get; }
-
-        public string Convert(string FilePath)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
