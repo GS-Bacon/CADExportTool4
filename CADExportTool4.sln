@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CADExportTool4", "CADExport
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolidworksAPIAPI", "SolidworksAPIAPI\SolidworksAPIAPI.csproj", "{A36ECE49-BB42-44E5-8C37-1F906A149296}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SMZ_CADExportTool", "SMZ_CADExportTool\SMZ_CADExportTool.csproj", "{E8F99FF9-40FF-453C-81B1-2E18E18E60C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject2", "TestProject2\TestProject2.csproj", "{D2A035A3-E612-4F57-A897-A52861366D82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{A36ECE49-BB42-44E5-8C37-1F906A149296}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A36ECE49-BB42-44E5-8C37-1F906A149296}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A36ECE49-BB42-44E5-8C37-1F906A149296}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8F99FF9-40FF-453C-81B1-2E18E18E60C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8F99FF9-40FF-453C-81B1-2E18E18E60C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8F99FF9-40FF-453C-81B1-2E18E18E60C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8F99FF9-40FF-453C-81B1-2E18E18E60C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2A035A3-E612-4F57-A897-A52861366D82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2A035A3-E612-4F57-A897-A52861366D82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A035A3-E612-4F57-A897-A52861366D82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2A035A3-E612-4F57-A897-A52861366D82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

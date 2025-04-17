@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SolidworksAPIAPI
+namespace SolidworksAPIAPI.Converter
 {
     public class OpenCadFile
     {
-        
+
         public static ModelDoc2? OpenDrawCadFile(string FilePath)
         {
             SldWorks SolidworksApp = new SldWorks();
@@ -19,7 +19,7 @@ namespace SolidworksAPIAPI
                 ModelDoc2 SolidworksDocument;
                 int FileErro = 0;
                 int FileWarning = 0;
-                SolidworksDocument = (ModelDoc2)SolidworksApp.OpenDoc6(
+                SolidworksDocument = SolidworksApp.OpenDoc6(
                         FilePath,
                         (int)swDocumentTypes_e.swDocDRAWING,
                         (int)swOpenDocOptions_e.swOpenDocOptions_Silent,
