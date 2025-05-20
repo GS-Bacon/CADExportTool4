@@ -392,9 +392,9 @@
             CreateThumbnail_CheckBox.AutoSize = true;
             CreateThumbnail_CheckBox.Location = new Point(6, 22);
             CreateThumbnail_CheckBox.Name = "CreateThumbnail_CheckBox";
-            CreateThumbnail_CheckBox.Size = new Size(200, 19);
+            CreateThumbnail_CheckBox.Size = new Size(130, 19);
             CreateThumbnail_CheckBox.TabIndex = 0;
-            CreateThumbnail_CheckBox.Text = "サムネ画像をPDFフォルダに入れちゃう";
+            CreateThumbnail_CheckBox.Text = "サムネ画像を取得する";
             CreateThumbnail_CheckBox.UseVisualStyleBackColor = true;
             // 
             // StartExport_Button
@@ -415,6 +415,7 @@
             Break_Button.TabIndex = 12;
             Break_Button.Text = "中断";
             Break_Button.UseVisualStyleBackColor = true;
+            Break_Button.Click += Break_Button_Click;
             // 
             // StartExport_ProgressBar
             // 

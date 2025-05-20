@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Documents;
 using System.Windows.Forms;
@@ -346,22 +347,88 @@ namespace SMZ_CADExportTool
         }
         #endregion
 
-
+        #region ExportStartEnd
+        Thread thread1 = null;
         private void StartExport_Button_Click(object sender, EventArgs e)
         {
             string? errorText = GetErroGUI();
             if (errorText == null)
             {
-                ExportFile exportFile = new ExportFile(this);
-               
+                //GUIを無効化する
+                this.GuiOnOff(false);
+                string TopFolderPath = "";
+                //出力先のフォルダーを取得する
+                //オプションによって下位フォルダーを選択する
+                if (this.SameFolder_RadioButton.Checked)
+                {
+                    //トップフォルダーを取得
+                    TopFolderPath = Path.GetDirectoryName(this.FilePath_ListView.Items[0].SubItems[1].Text);
+                }
+                else if (this.LowerFolder_RadioButton.Checked)
+                {
+                    //直下フォルダー
+                    TopFolderPath = this.LowerFolder_ComboBox.Items[0].ToString();
+                }
+                else if (this.OtherFolder_RadioButton.Checked)
+                {
+                    //他のフォルダー
+                    TopFolderPath = this.ZipOtherFolder_ListBox.Items[0].ToString();
+                }
 
+                List<string> filePaths = new List<string>();
+                foreach (ListViewItem item in this.FilePath_ListView.Items)
+                {
+                    filePaths.Add(item.SubItems[1].Text);
+                }
+                ExportFile exportFile = new ExportFile(this);
+                thread1 = new Thread(() => exportFile.Export(progressBar: this.StartExport_ProgressBar, filePaths, TopFolderPath));
+                thread1.Start();
+                this.TaskLabel.Text = "処理待ち";
+                this.StartExport_ProgressBar.Value = 0;
+                GuiOnOff(true);
             }
             else
             {
                 TaskLabel.Text = errorText;
             }
         }
+        private void Break_Button_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("変換処理を中断しますか？", "中断ダイアログ", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                thread1.Interrupt();
+                thread1.Join();
+                this.TaskLabel.Text = "処理を中断しました";
+                this.Invoke(new CADExportTool.TaskCount(this.InvokeProgressBar), 0);
+                this.StartExport_ProgressBar.Update();
+                this.GuiOnOff(true);
+            }
+        }
 
+        #endregion
+
+        #region Utility
+        private void GuiOnOff(bool Flag)
+        {
+            this.FilePath_ListView.Enabled = Flag;
+            this.FilePath_Button.Enabled = Flag;
+            this.ExportFolder_GroupBox.Enabled = Flag;
+            this.Zip_GroupBox.Enabled = Flag;
+            this.Other_GroupBox.Enabled = Flag;
+            foreach (ListViewItem item in FilePath_ListView.Items)
+            {
+                if (Path.GetExtension(item.SubItems[1].Text).Equals(".SLDPRT", StringComparison.OrdinalIgnoreCase) |
+                    Path.GetExtension(item.SubItems[1].Text).Equals(".SLDASM", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.PartFileOption_GroupBox.Enabled = Flag;
+                }
+                if (Path.GetExtension(item.SubItems[1].Text).Equals(".SLDDRW", StringComparison.OrdinalIgnoreCase))
+                {
+                    this.DrawFileOption_GroupBox.Enabled = Flag;
+                }
+            }
+        }
         /// <summary>
         /// ユーザー操作のエラーを表示
         /// </summary>
@@ -397,8 +464,46 @@ namespace SMZ_CADExportTool
                     return ZipOption_GroupBox.Text + "/" + ZipOtherFolder_RadioButton.Text + "のフォルダーを選択してください";
                 }
             }
-            return null;
+            if (this.PDF_CheckBox.Checked |
+                this.DXF_CheckBox.Checked |
+                this.STEP_CheckBox.Checked |
+                this.IGS_CheckBox.Checked |
+                this.ThreeMF_CheckBox.Checked
+                &&
+                this.LowerFolder_RadioButton.Checked |
+                this.OtherFolder_RadioButton.Checked |
+                this.SameFolder_RadioButton.Checked)
+            {
+                return null;
+            }
 
+
+            else
+            {
+                return "出力先フォルダーを選択してください";
+
+            }
         }
+        public void InvokeProgressBar(int counter)
+        {
+            this.StartExport_ProgressBar.Value = counter;
+        }
+        public void SetMaxProgressBar(int counter)
+        {
+            this.StartExport_ProgressBar.Maximum = counter;
+        }
+        public void SetMinProgressBar(int counter)
+        {
+            this.StartExport_ProgressBar.Minimum = counter;
+        }
+
+        public delegate void TaskCount(int counter);
+        public delegate void LabelText(string text);
+        public void SetLabel(String label)
+        {
+            this.TaskLabel.Text = label;
+        }
+        #endregion
+
     }
 }

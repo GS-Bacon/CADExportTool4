@@ -19,58 +19,47 @@ namespace SolidworksAPIAPI.Converter
         /// 変換後の拡張子
         /// </summary>
         public string OutputExtension { get; }
-
-        /// <summary>
-        /// 出力するフォルダパス
-        /// </summary>
-        public string OutputFolderPath { get; }
-
-        public List<string> FilePath { get; } = new List<string>();
-        public PartConverter(string outputExtension, string outoputFolderPath, List<string> filePath)
+        public PartConverter(string outputExtension)
         {
             OutputExtension = outputExtension;
-            OutputFolderPath = outoputFolderPath;
-            FilePath = filePath;
         }
-
-        public List<string>? Convert()
+        public string Convert(string OutoputFolderPath, string FilePath)
         {
-            List<string>? result = null;
             //各拡張子について処理
             foreach (string Extension in SubjectExtension)
             {
-                foreach (string File in FilePath)
+
+                //対象の拡張子だけに処理
+                if (Path.GetExtension(FilePath) == Extension)
                 {
-                    //対象の拡張子だけに処理
-                    if (Path.GetExtension(File) == Extension)
+                    //Null check
+                    if (OpenCadFile.OpenPartCadFile(FilePath) is ModelDoc2 part)
                     {
-                        //Null check
-                        if (OpenCadFile.OpenPartCadFile(File) is ModelDoc2 part)
-                        {
-                            ModelDocExtension SolidworksModelExtension = default;
-                            int FileErro = 0;
-                            int FileWarning = 0;
-                            bool bRet;
+                        ModelDocExtension SolidworksModelExtension = default;
+                        int FileErro = 0;
+                        int FileWarning = 0;
+                        bool bRet;
 
-                            SolidworksModelExtension = part.Extension;
-                            string exportFilePath = Path.Combine(OutputFolderPath, Path.ChangeExtension(Path.GetFileName(File), OutputExtension));
+                        SolidworksModelExtension = part.Extension;
+                        string exportFilePath = Path.Combine(OutoputFolderPath, Path.ChangeExtension(Path.GetFileName(FilePath), OutputExtension));
 
-                            bRet = SolidworksModelExtension.SaveAs3(
-                                exportFilePath,
-                                (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
-                                (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
-                                null,
-                                null,
-                                ref FileErro,
-                                ref FileWarning
-                                );
-                            result.Add(exportFilePath);
-                        }
+                        bRet = SolidworksModelExtension.SaveAs3(
+                            exportFilePath,
+                            (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
+                            (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
+                            null,
+                            null,
+                            ref FileErro,
+                            ref FileWarning
+                            );
+                        return exportFilePath;
                     }
+
                 }
 
             }
-            return result;
+            return null;
+
         }
     }
 }

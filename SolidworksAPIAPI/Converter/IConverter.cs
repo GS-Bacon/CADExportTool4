@@ -23,17 +23,10 @@ namespace SolidworksAPIAPI.Converter
         public string OutputExtension { get; }
 
         /// <summary>
-        /// 出力先のフォルダーパス
-        /// </summary>
-        public string OutputFolderPath { get; }
-
-        public List<string> FilePath {  get; }
-
-        /// <summary>
         /// ファイルを変換します
         /// </summary>
         /// <param name="FilePath">変換するファイルパス</param>
         /// <returns>変換後のフィルパス</returns>
-        public List<string>? Convert();
+        public string? Convert(string OutoputFolderPath, string FilePath);
     }
 }

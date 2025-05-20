@@ -12,23 +12,21 @@ namespace SolidworksAPIAPI
     public class GetThumbnail
     {
         public GetThumbnail() { }
-        public void GetAllImg(string Folderpath)
+        public void GetAllImg(string Folderpath, String FilePath)
         {
-            string[] files = Directory.GetFiles(Folderpath);
-            foreach (string file in files)
-            {
-                if (File.Exists(file))
-                {
-                    ShellFile shellFile =ShellFile.FromFilePath(file);
-                    Bitmap bmp = shellFile.Thumbnail.Bitmap;
-                    int w = (int)(bmp.Width * 2);
-                    int h = (int)(bmp.Height * 2);
-                    bmp.Save(Path.ChangeExtension(file,".png"), System.Drawing.Imaging.ImageFormat.Png);
-                    bmp.Dispose();
-                }
 
+            if (File.Exists(FilePath))
+            {
+                ShellFile shellFile = ShellFile.FromFilePath(FilePath);
+                Bitmap bmp = shellFile.Thumbnail.Bitmap;
+                int w = (int)(bmp.Width * 1);
+                int h = (int)(bmp.Height * 1);
+                bmp.Save(Path.Combine(Folderpath, Path.ChangeExtension(Path.GetFileName(FilePath), ".png")), System.Drawing.Imaging.ImageFormat.Png);
+                bmp.Dispose();
             }
 
         }
+
     }
 }
+

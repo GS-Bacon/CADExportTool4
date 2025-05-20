@@ -13,53 +13,45 @@ namespace SolidworksAPIAPI.Converter
         public List<string> SubjectExtension { get; set; } = [".SLDDRW"];
 
         public string OutputExtension { get; set; }
-
-        public string OutputFolderPath { get; set; }
-        public List<string> FilePath { get; } = new List<string>();
-        public DrawConverter(string outputExtension, string outoputFolderPath, List<string> filePath)
+        public DrawConverter(string outputExtension)
         {
             OutputExtension = outputExtension;
-            OutputFolderPath = outoputFolderPath;
-            FilePath = filePath;
         }
-        public List<string>? Convert()
+        public string? Convert(string OutoputFolderPath, string FilePath)
         {
-            List<string>? result = null;
             //各拡張子について処理
             foreach (string Extension in SubjectExtension)
             {
-                foreach (string File in FilePath)
+                //対象の拡張子だけに処理
+                if (Path.GetExtension(FilePath) == Extension)
                 {
-                    //対象の拡張子だけに処理
-                    if (Path.GetExtension(File) == Extension)
+                    //Null check
+                    if (OpenCadFile.OpenDrawCadFile(FilePath) is ModelDoc2 draw)
                     {
-                        //Null check
-                        if (OpenCadFile.OpenDrawCadFile(File) is ModelDoc2 draw)
-                        {
-                            ModelDocExtension SolidworksModelExtension = default;
-                            int FileErro = 0;
-                            int FileWarning = 0;
-                            bool bRet;
+                        ModelDocExtension SolidworksModelExtension = default;
+                        int FileErro = 0;
+                        int FileWarning = 0;
+                        bool bRet;
 
-                            SolidworksModelExtension = draw.Extension;
-                            string exportFilePath = Path.Combine(OutputFolderPath, Path.ChangeExtension(Path.GetFileName(File), OutputExtension));
+                        SolidworksModelExtension = draw.Extension;
+                        string exportFilePath = Path.Combine(OutoputFolderPath, Path.ChangeExtension(Path.GetFileName(FilePath), OutputExtension));
 
-                            bRet = SolidworksModelExtension.SaveAs3(
-                                exportFilePath,
-                                (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
-                                (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
-                                null,
-                                null,
-                                ref FileErro,
-                                ref FileWarning
-                                );
-                            result.Add(exportFilePath);
-                        }
+                        bRet = SolidworksModelExtension.SaveAs3(
+                            exportFilePath,
+                            (int)swSaveAsVersion_e.swSaveAsCurrentVersion,
+                            (int)swSaveAsOptions_e.swSaveAsOptions_Silent,
+                            null,
+                            null,
+                            ref FileErro,
+                            ref FileWarning
+                            );
+                        return exportFilePath;
                     }
-                }
 
+                }
             }
-            return result;
+            return null;
+
         }
     }
 }
