@@ -15,7 +15,8 @@
       "Bash(dotnet build:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nfeat: WPF + Prism + MVVMパターンでアプリを再構築\n\n新規プロジェクト構成:\n- CADExportTool.WPF: WPFアプリ (Prism.DryIoc, Material Design)\n- CADExportTool.Core: 共有モデル・インターフェース\n- CADExportTool.Services: サービス実装層\n\n主な改善点:\n- MVVMパターンによるUI/ロジック分離\n- DIコンテナによる依存性注入\n- SolidWorksシングルトン接続管理\n- Material Design UIによるモダンなデザイン\n- IProgress<T>による標準化された進捗報告\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(git push)",
-      "Bash(dotnet run:*)"
+      "Bash(dotnet run:*)",
+      "Bash(git commit:*)"
     ]
   }
 }

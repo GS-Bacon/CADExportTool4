@@ -4,9 +4,11 @@ using System.Windows;
 using CADExportTool.Core.Enums;
 using CADExportTool.Core.Interfaces;
 using CADExportTool.Core.Models;
+using CADExportTool.WPF.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using GongSolutions.Wpf.DragDrop;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
@@ -18,11 +20,20 @@ namespace CADExportTool.WPF.ViewModels;
 public partial class MainViewModel : ObservableObject, IDropTarget
 {
     private readonly IExportService _exportService;
+    private readonly IToastNotificationService _toastService;
     private CancellationTokenSource? _cancellationTokenSource;
 
-    public MainViewModel(IExportService exportService)
+    /// <summary>Snackbarメッセージキュー（View用）</summary>
+    public ISnackbarMessageQueue SnackbarMessageQueue { get; }
+
+    public MainViewModel(
+        IExportService exportService,
+        IToastNotificationService toastService,
+        ISnackbarMessageQueue snackbarMessageQueue)
     {
         _exportService = exportService;
+        _toastService = toastService;
+        SnackbarMessageQueue = snackbarMessageQueue;
     }
 
     #region Properties
@@ -42,6 +53,12 @@ public partial class MainViewModel : ObservableObject, IDropTarget
     /// <summary>プログレス最大値</summary>
     [ObservableProperty]
     private int _progressMaximum = 100;
+
+    /// <summary>進捗テキスト（X / Y形式）</summary>
+    public string ProgressText => $"{ProgressValue} / {ProgressMaximum}";
+
+    partial void OnProgressValueChanged(int value) => OnPropertyChanged(nameof(ProgressText));
+    partial void OnProgressMaximumChanged(int value) => OnPropertyChanged(nameof(ProgressText));
 
     /// <summary>ステータスメッセージ</summary>
     [ObservableProperty]
@@ -146,14 +163,17 @@ public partial class MainViewModel : ObservableObject, IDropTarget
             if (result.WasCancelled)
             {
                 StatusMessage = "処理がキャンセルされました";
+                _toastService.ShowInfo("処理がキャンセルされました");
             }
             else if (result.IsSuccess)
             {
                 StatusMessage = $"完了: {result.SuccessCount}件のファイルをエクスポートしました";
+                _toastService.ShowSuccess($"変換完了: {result.SuccessCount}件のファイルをエクスポートしました");
             }
             else
             {
                 StatusMessage = $"完了: {result.SuccessCount}件成功、{result.FailedCount}件失敗";
+                _toastService.ShowError($"{result.FailedCount}件のファイルが失敗しました");
                 if (result.Errors.Count > 0)
                 {
                     MessageBox.Show(

@@ -28,212 +28,234 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="16">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="350"/>
-            <ColumnDefinition Width="16"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+    <Grid>
+        <!-- メインコンテンツ -->
+        <Grid Margin="16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition Width="16"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <!-- 左側: ファイルリスト -->
-        <materialDesign:Card Grid.Column="0">
-            <DockPanel>
-                <!-- ヘッダー -->
-                <StackPanel DockPanel.Dock="Top" Margin="16,16,16,8">
-                    <TextBlock Text="CADファイル"
-                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Margin="0,0,0,8"/>
-                    <StackPanel Orientation="Horizontal">
-                        <Button Content="参照"
-                                Command="{Binding AddFilesCommand}"
-                                Style="{StaticResource MaterialDesignRaisedButton}"
-                                Margin="0,0,8,0"/>
-                        <Button Content="クリア"
-                                Command="{Binding ClearFilesCommand}"
-                                Style="{StaticResource MaterialDesignOutlinedButton}"/>
+            <!-- 左側: ファイルリスト -->
+            <materialDesign:Card Grid.Column="0">
+                <DockPanel>
+                    <!-- ヘッダー -->
+                    <StackPanel DockPanel.Dock="Top" Margin="16,16,16,8">
+                        <TextBlock Text="CADファイル"
+                                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                                   Margin="0,0,0,8"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Content="参照"
+                                    Command="{Binding AddFilesCommand}"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    Margin="0,0,8,0"/>
+                            <Button Content="クリア"
+                                    Command="{Binding ClearFilesCommand}"
+                                    Style="{StaticResource MaterialDesignOutlinedButton}"/>
+                        </StackPanel>
                     </StackPanel>
-                </StackPanel>
 
-                <!-- ファイルリスト -->
-                <ListView ItemsSource="{Binding FileList}"
-                          ItemContainerStyle="{StaticResource FileListItemStyle}"
-                          dd:DragDrop.IsDropTarget="True"
-                          dd:DragDrop.DropHandler="{Binding}"
-                          Margin="8"
-                          SelectionMode="Extended">
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="ファイル名" Width="200" DisplayMemberBinding="{Binding FileName}"/>
-                            <GridViewColumn Header="パス" Width="120" DisplayMemberBinding="{Binding FullPath}"/>
-                        </GridView>
-                    </ListView.View>
-                    <ListView.InputBindings>
-                        <KeyBinding Key="Delete" Command="{Binding RemoveSelectedFilesCommand}"/>
-                    </ListView.InputBindings>
-                </ListView>
-            </DockPanel>
-        </materialDesign:Card>
+                    <!-- ファイルリスト -->
+                    <ListView ItemsSource="{Binding FileList}"
+                              ItemContainerStyle="{StaticResource FileListItemStyle}"
+                              dd:DragDrop.IsDropTarget="True"
+                              dd:DragDrop.DropHandler="{Binding}"
+                              Margin="8"
+                              SelectionMode="Extended">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="ファイル名" Width="200" DisplayMemberBinding="{Binding FileName}"/>
+                                <GridViewColumn Header="パス" Width="120" DisplayMemberBinding="{Binding FullPath}"/>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.InputBindings>
+                            <KeyBinding Key="Delete" Command="{Binding RemoveSelectedFilesCommand}"/>
+                        </ListView.InputBindings>
+                    </ListView>
+                </DockPanel>
+            </materialDesign:Card>
 
-        <!-- 右側: オプションパネル -->
-        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
-            <StackPanel>
+            <!-- 右側: オプションパネル -->
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
 
-                <!-- 図面オプション -->
-                <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasDrawingFiles}">
-                    <Expander Header="図面ファイル出力オプション" IsExpanded="True">
-                        <StackPanel Margin="16,8">
-                            <CheckBox Content=".pdf (PDF)"
-                                      IsChecked="{Binding ExportOptions.ExportPdf}"
-                                      Margin="0,4"/>
-                            <CheckBox Content=".dxf (DXF)"
-                                      IsChecked="{Binding ExportOptions.ExportDxf}"
-                                      Margin="0,4"/>
-                        </StackPanel>
-                    </Expander>
-                </materialDesign:Card>
-
-                <!-- パーツ/アセンブリオプション -->
-                <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasPartFiles}">
-                    <Expander Header="パーツ/アセンブリ出力オプション" IsExpanded="True">
-                        <StackPanel Margin="16,8">
-                            <CheckBox Content=".igs (IGES)"
-                                      IsChecked="{Binding ExportOptions.ExportIgs}"
-                                      Margin="0,4"/>
-                            <CheckBox Content=".step (STEP)"
-                                      IsChecked="{Binding ExportOptions.ExportStep}"
-                                      Margin="0,4"/>
-                            <CheckBox Content=".3mf (3MF)"
-                                      IsChecked="{Binding ExportOptions.Export3mf}"
-                                      Margin="0,4"/>
-                        </StackPanel>
-                    </Expander>
-                </materialDesign:Card>
-
-                <!-- 出力先オプション -->
-                <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasFiles}">
-                    <Expander Header="出力先フォルダ" IsExpanded="True">
-                        <StackPanel Margin="16,8">
-                            <RadioButton Content="同じフォルダー内に出力"
-                                         IsChecked="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SameFolder}}"
-                                         GroupName="OutputFolder"
-                                         Margin="0,4"/>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <RadioButton Content="サブフォルダ:"
-                                             IsChecked="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SubFolder}}"
-                                             GroupName="OutputFolder"
-                                             VerticalAlignment="Center"/>
-                                <ComboBox ItemsSource="{Binding SubFolders}"
-                                          SelectedItem="{Binding ExportOptions.SelectedSubFolder}"
-                                          Width="150"
-                                          Margin="8,0,0,0"
-                                          IsEnabled="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SubFolder}}"/>
+                    <!-- 図面オプション -->
+                    <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasDrawingFiles}">
+                        <Expander Header="図面ファイル出力オプション" IsExpanded="True">
+                            <StackPanel Margin="16,8">
+                                <CheckBox Content=".pdf (PDF)"
+                                          IsChecked="{Binding ExportOptions.ExportPdf}"
+                                          Margin="0,4"/>
+                                <CheckBox Content=".dxf (DXF)"
+                                          IsChecked="{Binding ExportOptions.ExportDxf}"
+                                          Margin="0,4"/>
                             </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,4">
-                                <RadioButton Content="指定フォルダ:"
-                                             IsChecked="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"
-                                             GroupName="OutputFolder"
-                                             VerticalAlignment="Center"/>
-                                <TextBox Text="{Binding ExportOptions.CustomFolderPath}"
-                                         Width="150"
-                                         Margin="8,0,0,0"
-                                         IsReadOnly="True"
-                                         IsEnabled="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"/>
-                                <Button Content="参照"
-                                        Command="{Binding BrowseOutputFolderCommand}"
-                                        Style="{StaticResource MaterialDesignFlatButton}"
-                                        IsEnabled="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"/>
+                    <!-- パーツ/アセンブリオプション -->
+                    <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasPartFiles}">
+                        <Expander Header="パーツ/アセンブリ出力オプション" IsExpanded="True">
+                            <StackPanel Margin="16,8">
+                                <CheckBox Content=".igs (IGES)"
+                                          IsChecked="{Binding ExportOptions.ExportIgs}"
+                                          Margin="0,4"/>
+                                <CheckBox Content=".step (STEP)"
+                                          IsChecked="{Binding ExportOptions.ExportStep}"
+                                          Margin="0,4"/>
+                                <CheckBox Content=".3mf (3MF)"
+                                          IsChecked="{Binding ExportOptions.Export3mf}"
+                                          Margin="0,4"/>
                             </StackPanel>
-                        </StackPanel>
-                    </Expander>
-                </materialDesign:Card>
+                        </Expander>
+                    </materialDesign:Card>
 
-                <!-- ZIPオプション -->
-                <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasFiles}">
-                    <Expander Header="ZIP圧縮オプション">
-                        <StackPanel Margin="16,8">
-                            <CheckBox Content="ファイル名ごとにZIPファイルを生成"
-                                      IsChecked="{Binding ExportOptions.CreateZip}"
-                                      Margin="0,4"/>
-
-                            <StackPanel IsEnabled="{Binding ExportOptions.CreateZip}" Margin="24,8,0,0">
-                                <RadioButton Content="同じフォルダー"
-                                             IsChecked="{Binding ExportOptions.ZipFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SameFolder}}"
-                                             GroupName="ZipFolder"
+                    <!-- 出力先オプション -->
+                    <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasFiles}">
+                        <Expander Header="出力先フォルダ" IsExpanded="True">
+                            <StackPanel Margin="16,8">
+                                <RadioButton Content="同じフォルダー内に出力"
+                                             IsChecked="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SameFolder}}"
+                                             GroupName="OutputFolder"
                                              Margin="0,4"/>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,4">
                                     <RadioButton Content="サブフォルダ:"
-                                                 IsChecked="{Binding ExportOptions.ZipFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SubFolder}}"
-                                                 GroupName="ZipFolder"
+                                                 IsChecked="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SubFolder}}"
+                                                 GroupName="OutputFolder"
                                                  VerticalAlignment="Center"/>
-                                    <ComboBox ItemsSource="{Binding ZipSubFolders}"
-                                              SelectedItem="{Binding ExportOptions.ZipSubFolder}"
-                                              Width="120"
-                                              Margin="8,0,0,0"/>
+                                    <ComboBox ItemsSource="{Binding SubFolders}"
+                                              SelectedItem="{Binding ExportOptions.SelectedSubFolder}"
+                                              Width="150"
+                                              Margin="8,0,0,0"
+                                              IsEnabled="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SubFolder}}"/>
                                 </StackPanel>
 
                                 <StackPanel Orientation="Horizontal" Margin="0,4">
                                     <RadioButton Content="指定フォルダ:"
-                                                 IsChecked="{Binding ExportOptions.ZipFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"
-                                                 GroupName="ZipFolder"
+                                                 IsChecked="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"
+                                                 GroupName="OutputFolder"
                                                  VerticalAlignment="Center"/>
-                                    <TextBox Text="{Binding ExportOptions.ZipCustomFolderPath}"
-                                             Width="120"
+                                    <TextBox Text="{Binding ExportOptions.CustomFolderPath}"
+                                             Width="150"
                                              Margin="8,0,0,0"
-                                             IsReadOnly="True"/>
+                                             IsReadOnly="True"
+                                             IsEnabled="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"/>
                                     <Button Content="参照"
-                                            Command="{Binding BrowseZipFolderCommand}"
-                                            Style="{StaticResource MaterialDesignFlatButton}"/>
+                                            Command="{Binding BrowseOutputFolderCommand}"
+                                            Style="{StaticResource MaterialDesignFlatButton}"
+                                            IsEnabled="{Binding ExportOptions.OutputFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"/>
                                 </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
 
-                                <CheckBox Content="直下にZipフォルダを作成"
-                                          IsChecked="{Binding ExportOptions.CreateZipSubFolder}"
-                                          Margin="0,8,0,0"/>
+                    <!-- ZIPオプション -->
+                    <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasFiles}">
+                        <Expander Header="ZIP圧縮オプション">
+                            <StackPanel Margin="16,8">
+                                <CheckBox Content="ファイル名ごとにZIPファイルを生成"
+                                          IsChecked="{Binding ExportOptions.CreateZip}"
+                                          Margin="0,4"/>
+
+                                <StackPanel IsEnabled="{Binding ExportOptions.CreateZip}" Margin="24,8,0,0">
+                                    <RadioButton Content="同じフォルダー"
+                                                 IsChecked="{Binding ExportOptions.ZipFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SameFolder}}"
+                                                 GroupName="ZipFolder"
+                                                 Margin="0,4"/>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,4">
+                                        <RadioButton Content="サブフォルダ:"
+                                                     IsChecked="{Binding ExportOptions.ZipFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.SubFolder}}"
+                                                     GroupName="ZipFolder"
+                                                     VerticalAlignment="Center"/>
+                                        <ComboBox ItemsSource="{Binding ZipSubFolders}"
+                                                  SelectedItem="{Binding ExportOptions.ZipSubFolder}"
+                                                  Width="120"
+                                                  Margin="8,0,0,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Orientation="Horizontal" Margin="0,4">
+                                        <RadioButton Content="指定フォルダ:"
+                                                     IsChecked="{Binding ExportOptions.ZipFolderOption, Converter={StaticResource EnumToBoolConverter}, ConverterParameter={x:Static enums:FolderOption.CustomFolder}}"
+                                                     GroupName="ZipFolder"
+                                                     VerticalAlignment="Center"/>
+                                        <TextBox Text="{Binding ExportOptions.ZipCustomFolderPath}"
+                                                 Width="120"
+                                                 Margin="8,0,0,0"
+                                                 IsReadOnly="True"/>
+                                        <Button Content="参照"
+                                                Command="{Binding BrowseZipFolderCommand}"
+                                                Style="{StaticResource MaterialDesignFlatButton}"/>
+                                    </StackPanel>
+
+                                    <CheckBox Content="直下にZipフォルダを作成"
+                                              IsChecked="{Binding ExportOptions.CreateZipSubFolder}"
+                                              Margin="0,8,0,0"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
+
+                    <!-- その他オプション -->
+                    <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasFiles}">
+                        <Expander Header="その他オプション">
+                            <StackPanel Margin="16,8">
+                                <CheckBox Content="サムネイル画像を取得する"
+                                          IsChecked="{Binding ExportOptions.CreateThumbnail}"
+                                          Margin="0,4"/>
+                            </StackPanel>
+                        </Expander>
+                    </materialDesign:Card>
+
+                    <!-- 実行パネル -->
+                    <materialDesign:Card>
+                        <StackPanel Margin="16">
+                            <TextBlock Text="{Binding StatusMessage}"
+                                       Style="{StaticResource MaterialDesignBody1TextBlock}"
+                                       Margin="0,0,0,8"/>
+
+                            <Grid Margin="0,0,0,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ProgressBar Value="{Binding ProgressValue}"
+                                             Maximum="{Binding ProgressMaximum}"
+                                             Height="8"
+                                             Grid.Column="0"
+                                             Margin="0,0,8,0"/>
+                                <TextBlock Text="{Binding ProgressText}"
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                           MinWidth="60"
+                                           TextAlignment="Right"/>
+                            </Grid>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="変換"
+                                        Command="{Binding ExportCommand}"
+                                        Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
+                                        Width="100"
+                                        Margin="0,0,8,0"/>
+                                <Button Content="中断"
+                                        Command="{Binding CancelExportCommand}"
+                                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                                        Width="100"/>
                             </StackPanel>
                         </StackPanel>
-                    </Expander>
-                </materialDesign:Card>
+                    </materialDesign:Card>
 
-                <!-- その他オプション -->
-                <materialDesign:Card Margin="0,0,0,8" IsEnabled="{Binding HasFiles}">
-                    <Expander Header="その他オプション">
-                        <StackPanel Margin="16,8">
-                            <CheckBox Content="サムネイル画像を取得する"
-                                      IsChecked="{Binding ExportOptions.CreateThumbnail}"
-                                      Margin="0,4"/>
-                        </StackPanel>
-                    </Expander>
-                </materialDesign:Card>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
 
-                <!-- 実行パネル -->
-                <materialDesign:Card>
-                    <StackPanel Margin="16">
-                        <TextBlock Text="{Binding StatusMessage}"
-                                   Style="{StaticResource MaterialDesignBody1TextBlock}"
-                                   Margin="0,0,0,8"/>
-
-                        <ProgressBar Value="{Binding ProgressValue}"
-                                     Maximum="{Binding ProgressMaximum}"
-                                     Height="8"
-                                     Margin="0,0,0,16"/>
-
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button Content="変換"
-                                    Command="{Binding ExportCommand}"
-                                    Style="{StaticResource MaterialDesignRaisedSecondaryButton}"
-                                    Width="100"
-                                    Margin="0,0,8,0"/>
-                            <Button Content="中断"
-                                    Command="{Binding CancelExportCommand}"
-                                    Style="{StaticResource MaterialDesignOutlinedButton}"
-                                    Width="100"/>
-                        </StackPanel>
-                    </StackPanel>
-                </materialDesign:Card>
-
-            </StackPanel>
-        </ScrollViewer>
+        <!-- Snackbar (トースト通知) -->
+        <materialDesign:Snackbar MessageQueue="{Binding SnackbarMessageQueue}"
+                                 VerticalAlignment="Bottom"
+                                 HorizontalAlignment="Stretch"
+                                 Margin="16"/>
     </Grid>
 </UserControl>
