@@ -348,8 +348,8 @@ namespace SMZ_CADExportTool
         #endregion
 
         #region ExportStartEnd
-        Thread thread1 = null;
-        private void StartExport_Button_Click(object sender, EventArgs e)
+        CancellationTokenSource cancellationTokenSource = null;
+        private async void StartExport_Button_Click(object sender, EventArgs e)
         {
             string? errorText = GetErroGUI();
             if (errorText == null)
@@ -367,12 +367,12 @@ namespace SMZ_CADExportTool
                 else if (this.LowerFolder_RadioButton.Checked)
                 {
                     //直下フォルダー
-                    TopFolderPath = this.LowerFolder_ComboBox.Items[0].ToString();
+                    TopFolderPath = Path.Combine(Path.GetDirectoryName(this.FilePath_ListView.Items[0].SubItems[1].Text), this.LowerFolder_ComboBox.Items[this.LowerFolder_ComboBox.SelectedIndex].ToString());
                 }
                 else if (this.OtherFolder_RadioButton.Checked)
                 {
                     //他のフォルダー
-                    TopFolderPath = this.ZipOtherFolder_ListBox.Items[0].ToString();
+                    TopFolderPath = Path.Combine(Path.GetDirectoryName(this.FilePath_ListView.Items[0].SubItems[1].Text), this.OtherFolder_ListBox.Items[0].ToString());
                 }
 
                 List<string> filePaths = new List<string>();
@@ -380,12 +380,37 @@ namespace SMZ_CADExportTool
                 {
                     filePaths.Add(item.SubItems[1].Text);
                 }
+                cancellationTokenSource = new CancellationTokenSource();
+                CancellationToken cancellationToken = cancellationTokenSource.Token;
                 ExportFile exportFile = new ExportFile(this);
-                thread1 = new Thread(() => exportFile.Export(progressBar: this.StartExport_ProgressBar, filePaths, TopFolderPath));
-                thread1.Start();
-                this.TaskLabel.Text = "処理待ち";
-                this.StartExport_ProgressBar.Value = 0;
-                GuiOnOff(true);
+                try
+                {
+                    await Task.Run(() =>
+                        exportFile.Export(
+                    progressBar: this.StartExport_ProgressBar,
+                    filePaths,
+                    TopFolderPath,
+                    cancellationToken
+                ), cancellationToken);
+
+                    this.TaskLabel.Text = "完了";
+                }
+                catch (OperationCanceledException)
+                {
+                    // 【変更点 3】中断ボタンでキャンセルされた場合の処理
+                    this.TaskLabel.Text = "中断されました";
+                }
+                catch (Exception ex)
+                {
+                    this.TaskLabel.Text = "エラー";
+                    MessageBox.Show($"エクスポート中にエラーが発生しました: {ex.Message}");
+                }
+                finally
+                {
+                    this.GuiOnOff(true);
+                    cancellationTokenSource.Dispose(); // リソースの解放
+                    cancellationTokenSource = null;
+                }
             }
             else
             {
@@ -397,12 +422,14 @@ namespace SMZ_CADExportTool
             DialogResult result = MessageBox.Show("変換処理を中断しますか？", "中断ダイアログ", MessageBoxButtons.YesNo);
             if (result == DialogResult.Yes)
             {
-                thread1.Interrupt();
-                thread1.Join();
-                this.TaskLabel.Text = "処理を中断しました";
-                this.Invoke(new CADExportTool.TaskCount(this.InvokeProgressBar), 0);
-                this.StartExport_ProgressBar.Update();
-                this.GuiOnOff(true);
+                if (cancellationTokenSource != null)
+                {
+                    cancellationTokenSource.Cancel();
+                    this.TaskLabel.Text = "処理を中断しました";
+                    this.Invoke(new CADExportTool.TaskCount(this.InvokeProgressBar), 0);
+                    this.StartExport_ProgressBar.Update();
+                    this.GuiOnOff(true);
+                }
             }
         }
 
@@ -416,6 +443,7 @@ namespace SMZ_CADExportTool
             this.ExportFolder_GroupBox.Enabled = Flag;
             this.Zip_GroupBox.Enabled = Flag;
             this.Other_GroupBox.Enabled = Flag;
+            this.StartExport_Button.Enabled= Flag;
             foreach (ListViewItem item in FilePath_ListView.Items)
             {
                 if (Path.GetExtension(item.SubItems[1].Text).Equals(".SLDPRT", StringComparison.OrdinalIgnoreCase) |
@@ -505,5 +533,9 @@ namespace SMZ_CADExportTool
         }
         #endregion
 
+        private void CADExportTool_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

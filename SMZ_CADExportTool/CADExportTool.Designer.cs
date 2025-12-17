@@ -63,12 +63,14 @@
             StartExport_ProgressBar = new ProgressBar();
             FilePath_OpenFileDialog = new OpenFileDialog();
             TaskLabel = new Label();
+            groupBox1 = new GroupBox();
             DrawFileOption_GroupBox.SuspendLayout();
             PartFileOption_GroupBox.SuspendLayout();
             ExportFolder_GroupBox.SuspendLayout();
             ZipOption_GroupBox.SuspendLayout();
             Zip_GroupBox.SuspendLayout();
             Other_GroupBox.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // FilePath_ListView
@@ -77,7 +79,7 @@
             FilePath_ListView.Columns.AddRange(new ColumnHeader[] { FileName, FullPath });
             FilePath_ListView.Location = new Point(12, 41);
             FilePath_ListView.Name = "FilePath_ListView";
-            FilePath_ListView.Size = new Size(324, 610);
+            FilePath_ListView.Size = new Size(324, 672);
             FilePath_ListView.TabIndex = 1;
             FilePath_ListView.UseCompatibleStateImageBehavior = false;
             FilePath_ListView.View = View.Details;
@@ -177,7 +179,7 @@
             ExportFolder_GroupBox.Controls.Add(SameFolder_RadioButton);
             ExportFolder_GroupBox.Location = new Point(342, 118);
             ExportFolder_GroupBox.Name = "ExportFolder_GroupBox";
-            ExportFolder_GroupBox.Size = new Size(391, 168);
+            ExportFolder_GroupBox.Size = new Size(391, 173);
             ExportFolder_GroupBox.TabIndex = 4;
             ExportFolder_GroupBox.TabStop = false;
             ExportFolder_GroupBox.Text = "出力フォルダオプション";
@@ -359,7 +361,7 @@
             // 
             Zip_GroupBox.Controls.Add(ZipOption_CheckBox);
             Zip_GroupBox.Controls.Add(ZipOption_GroupBox);
-            Zip_GroupBox.Location = new Point(342, 292);
+            Zip_GroupBox.Location = new Point(342, 297);
             Zip_GroupBox.Name = "Zip_GroupBox";
             Zip_GroupBox.Size = new Size(391, 247);
             Zip_GroupBox.TabIndex = 9;
@@ -380,7 +382,7 @@
             // Other_GroupBox
             // 
             Other_GroupBox.Controls.Add(CreateThumbnail_CheckBox);
-            Other_GroupBox.Location = new Point(342, 545);
+            Other_GroupBox.Location = new Point(342, 550);
             Other_GroupBox.Name = "Other_GroupBox";
             Other_GroupBox.Size = new Size(391, 48);
             Other_GroupBox.TabIndex = 10;
@@ -399,7 +401,7 @@
             // 
             // StartExport_Button
             // 
-            StartExport_Button.Location = new Point(619, 624);
+            StartExport_Button.Location = new Point(271, 31);
             StartExport_Button.Name = "StartExport_Button";
             StartExport_Button.Size = new Size(54, 27);
             StartExport_Button.TabIndex = 11;
@@ -409,7 +411,7 @@
             // 
             // Break_Button
             // 
-            Break_Button.Location = new Point(678, 624);
+            Break_Button.Location = new Point(331, 31);
             Break_Button.Name = "Break_Button";
             Break_Button.Size = new Size(54, 27);
             Break_Button.TabIndex = 12;
@@ -419,9 +421,9 @@
             // 
             // StartExport_ProgressBar
             // 
-            StartExport_ProgressBar.Location = new Point(342, 628);
+            StartExport_ProgressBar.Location = new Point(6, 35);
             StartExport_ProgressBar.Name = "StartExport_ProgressBar";
-            StartExport_ProgressBar.Size = new Size(271, 23);
+            StartExport_ProgressBar.Size = new Size(259, 23);
             StartExport_ProgressBar.TabIndex = 13;
             // 
             // FilePath_OpenFileDialog
@@ -433,21 +435,31 @@
             // 
             TaskLabel.AutoSize = true;
             TaskLabel.Font = new Font("Yu Gothic UI", 8F);
-            TaskLabel.Location = new Point(347, 596);
+            TaskLabel.Location = new Point(6, 19);
             TaskLabel.Name = "TaskLabel";
             TaskLabel.Size = new Size(48, 13);
             TaskLabel.TabIndex = 14;
             TaskLabel.Text = "処理待ち";
             // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(TaskLabel);
+            groupBox1.Controls.Add(Break_Button);
+            groupBox1.Controls.Add(StartExport_ProgressBar);
+            groupBox1.Controls.Add(StartExport_Button);
+            groupBox1.Location = new Point(342, 604);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(391, 69);
+            groupBox1.TabIndex = 15;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "出力処理";
+            // 
             // CADExportTool
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(744, 663);
-            Controls.Add(TaskLabel);
-            Controls.Add(StartExport_ProgressBar);
-            Controls.Add(Break_Button);
-            Controls.Add(StartExport_Button);
+            ClientSize = new Size(746, 727);
+            Controls.Add(groupBox1);
             Controls.Add(Other_GroupBox);
             Controls.Add(Zip_GroupBox);
             Controls.Add(FilePath_Button);
@@ -456,7 +468,8 @@
             Controls.Add(DrawFileOption_GroupBox);
             Controls.Add(FilePath_ListView);
             Name = "CADExportTool";
-            Text = "Form1";
+            Text = "CAD Export Tool";
+            Load += CADExportTool_Load;
             DrawFileOption_GroupBox.ResumeLayout(false);
             DrawFileOption_GroupBox.PerformLayout();
             PartFileOption_GroupBox.ResumeLayout(false);
@@ -469,8 +482,9 @@
             Zip_GroupBox.PerformLayout();
             Other_GroupBox.ResumeLayout(false);
             Other_GroupBox.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -509,5 +523,6 @@
         public Button StartExport_Button;
         public Button Break_Button;
         public ProgressBar StartExport_ProgressBar;
+        private GroupBox groupBox1;
     }
 }

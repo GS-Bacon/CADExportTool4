@@ -8,32 +8,33 @@ using System.Threading.Tasks;
 
 namespace SolidworksAPIAPI.Converter
 {
-    public class DrawConverter : IConverter
+    public class AssyConverter : IConverter
     {
-        public List<string> SubjectExtension { get; set; } = [".SLDDRW"];
-
-        public string OutputExtension { get; set; }
-        public DrawConverter(string outputExtension)
+        public List<string> SubjectExtension { get; } = [".SLDASM"];
+        public string OutputExtension { get; }
+        public AssyConverter(string outputExtension)
         {
             OutputExtension = outputExtension;
         }
-        public string? Convert(string OutoputFolderPath, string FilePath)
+
+        public string Convert(string OutoputFolderPath, string FilePath)
         {
             //各拡張子について処理
             foreach (string Extension in SubjectExtension)
             {
+
                 //対象の拡張子だけに処理
                 if (Path.GetExtension(FilePath) == Extension)
                 {
                     //Null check
-                    if (OpenCadFile.OpenDrawCadFile(FilePath) is ModelDoc2 draw)
+                    if (OpenCadFile.OpenAssemblyCadFile(FilePath) is ModelDoc2 part)
                     {
                         ModelDocExtension SolidworksModelExtension = default;
                         int FileErro = 0;
                         int FileWarning = 0;
                         bool bRet;
 
-                        SolidworksModelExtension = draw.Extension;
+                        SolidworksModelExtension = part.Extension;
                         string exportFilePath = Path.Combine(OutoputFolderPath, Path.ChangeExtension(Path.GetFileName(FilePath), OutputExtension));
 
                         bRet = SolidworksModelExtension.SaveAs3(
@@ -51,9 +52,9 @@ namespace SolidworksAPIAPI.Converter
                     }
 
                 }
+
             }
             return null;
-
         }
     }
 }

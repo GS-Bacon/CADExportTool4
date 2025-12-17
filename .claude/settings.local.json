@@ -9,7 +9,13 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "Bash(chcp:*)",
       "WebFetch(domain:api.github.com)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: spec-kit（仕様駆動開発）を導入\n\nプロジェクトに仕様駆動開発のワークフローを追加:\n- CLAUDE.md: プロジェクトガイド\n- memory/constitution.md: 開発原則とガイドライン\n- .claude/commands/: speckit スラッシュコマンド\n- .specify/templates/: 仕様書・計画書テンプレート\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(dotnet new:*)",
+      "Bash(dotnet build:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nfeat: WPF + Prism + MVVMパターンでアプリを再構築\n\n新規プロジェクト構成:\n- CADExportTool.WPF: WPFアプリ (Prism.DryIoc, Material Design)\n- CADExportTool.Core: 共有モデル・インターフェース\n- CADExportTool.Services: サービス実装層\n\n主な改善点:\n- MVVMパターンによるUI/ロジック分離\n- DIコンテナによる依存性注入\n- SolidWorksシングルトン接続管理\n- Material Design UIによるモダンなデザイン\n- IProgress<T>による標準化された進捗報告\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push)",
+      "Bash(dotnet run:*)"
     ]
   }
 }

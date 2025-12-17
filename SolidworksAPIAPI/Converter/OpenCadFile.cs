@@ -10,6 +10,30 @@ namespace SolidworksAPIAPI.Converter
 {
     public class OpenCadFile
     {
+        public static ModelDoc2? OpenAssemblyCadFile(string FilePath)
+        {
+            SldWorks SolidworksApp = new SldWorks();
+            try
+            {
+                ModelDoc2 SolidworksDocument;
+                int FileErro = 0;
+                int FileWarning = 0;
+                SolidworksDocument = SolidworksApp.OpenDoc6(
+                        FilePath,
+                        (int)swDocumentTypes_e.swDocASSEMBLY,
+                        (int)swOpenDocOptions_e.swOpenDocOptions_Silent,
+                        "",
+                        ref FileErro,
+                        ref FileWarning
+                        );
+                return SolidworksDocument;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+                return null;
+            }
+        }
 
         public static ModelDoc2? OpenDrawCadFile(string FilePath)
         {

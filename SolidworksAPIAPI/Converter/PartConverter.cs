@@ -13,7 +13,7 @@ namespace SolidworksAPIAPI.Converter
         /// <summary>
         /// 変換対象となるファイル拡張子
         /// </summary>
-        public List<string> SubjectExtension { get; } = [".SLDPRT", ".SLDASM"];
+        public List<string> SubjectExtension { get; } = [".SLDPRT"];
 
         /// <summary>
         /// 変換後の拡張子
@@ -52,6 +52,8 @@ namespace SolidworksAPIAPI.Converter
                             ref FileErro,
                             ref FileWarning
                             );
+                        SldWorks SolidworksApp = new SldWorks();
+                        SolidworksApp.CloseDoc(FilePath);
                         return exportFilePath;
                     }
 
