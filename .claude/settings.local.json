@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(where:*)",
+      "Bash(uv tool install:*)",
+      "Bash(\"C:\\Users\\bacon\\.local\\bin\\specify.exe\" init . --ai claude)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(chcp:*)",
+      "WebFetch(domain:api.github.com)",
+      "Bash(git add:*)"
+    ]
+  }
+}
