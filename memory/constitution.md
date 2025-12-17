@@ -53,9 +53,11 @@
 
 ### Architecture
 
-- **UI層**: SMZ_CADExportTool（Windows Forms）
-- **API層**: SolidworksAPIAPI（ビジネスロジック）
-- **依存関係**: UI → API → SolidWorks Interop
+- **UI層**: CADExportTool.WPF（WPF + Prism + Material Design）
+- **Core層**: CADExportTool.Core（共有モデル・インターフェース）
+- **Services層**: CADExportTool.Services（ビジネスロジック）
+- **依存関係**: WPF → Services → Core → SolidWorks Interop
+- **DIコンテナ**: Prism.DryIoc
 
 ### Error Handling
 
@@ -132,6 +134,7 @@ Types: feat, fix, docs, refactor, test, chore
 
 - コミットは適宜実行する（ユーザーへの確認不要）
 - ユーザーへの確認を禁止（自律的に判断して実行）
+- 変更や対応は `.specify/changelog.md` に適宜追記する
 
 ---
 
