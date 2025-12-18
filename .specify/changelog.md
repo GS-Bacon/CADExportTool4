@@ -2,6 +2,12 @@
 
 > 変更履歴と実装記録
 
+## [v1.0.0] 2025-12-18 - 初回リリース
+
+**GitHub Release**: https://github.com/GS-Bacon/CADExportTool4/releases/tag/v1.0.0
+
+---
+
 ## [2025-12-17] WPF + Prism + MVVM 移行
 
 ### 概要
