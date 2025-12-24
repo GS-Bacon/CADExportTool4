@@ -2,6 +2,44 @@
 
 > 変更履歴と実装記録
 
+## [v1.1.0] 2025-12-24 - 自動更新・エラー報告機能
+
+### 新機能
+
+#### 1. 自動更新システム
+
+- **ファイル**: `CADExportTool.Services/UpdateService.cs`, `CADExportTool.Core/Interfaces/IUpdateService.cs`
+- **機能**:
+  - GitHub Releases APIを使用した更新チェック
+  - 起動時に新バージョンを自動検出
+  - ワンクリックでダウンロード・更新
+
+#### 2. GitHub Issues自動エラー報告
+
+- **ファイル**: `CADExportTool.Services/ErrorReportingService.cs`, `CADExportTool.Core/Interfaces/IErrorReportingService.cs`
+- **機能**:
+  - ユーザー許可制のエラー報告
+  - スタックトレース・環境情報を自動収集
+  - ブラウザでGitHub Issue作成ページを開く
+  - 個人情報は送信されない
+
+### ドキュメント改善
+
+- README.mdを詳細な内容に更新
+- docs/wiki/にユーザーガイドを追加
+  - インストール手順
+  - 基本的な使い方
+  - 出力設定
+  - トラブルシューティング
+  - FAQ
+
+### テスト追加
+
+- `UpdateServiceTests.cs`: バージョン比較ロジックのテスト
+- `ErrorReportingServiceTests.cs`: 文字列トランケーション等のテスト
+
+---
+
 ## [v1.0.0] 2025-12-18 - 初回リリース
 
 **GitHub Release**: https://github.com/GS-Bacon/CADExportTool4/releases/tag/v1.0.0

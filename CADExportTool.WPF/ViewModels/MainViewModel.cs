@@ -21,6 +21,7 @@ public partial class MainViewModel : ObservableObject, IDropTarget
 {
     private readonly IExportService _exportService;
     private readonly IToastNotificationService _toastService;
+    private readonly IErrorReportingService _errorReportingService;
     private CancellationTokenSource? _cancellationTokenSource;
 
     /// <summary>Snackbarメッセージキュー（View用）</summary>
@@ -29,11 +30,13 @@ public partial class MainViewModel : ObservableObject, IDropTarget
     public MainViewModel(
         IExportService exportService,
         IToastNotificationService toastService,
-        ISnackbarMessageQueue snackbarMessageQueue)
+        ISnackbarMessageQueue snackbarMessageQueue,
+        IErrorReportingService errorReportingService)
     {
         _exportService = exportService;
         _toastService = toastService;
         SnackbarMessageQueue = snackbarMessageQueue;
+        _errorReportingService = errorReportingService;
     }
 
     #region Properties
@@ -191,6 +194,7 @@ public partial class MainViewModel : ObservableObject, IDropTarget
         {
             StatusMessage = $"エラー: {ex.Message}";
             MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+            await TryReportErrorAsync(ex, "Export operation failed");
         }
         finally
         {
@@ -365,6 +369,31 @@ public partial class MainViewModel : ObservableObject, IDropTarget
         };
 
         return dialog.ShowDialog() == CommonFileDialogResult.Ok ? dialog.FileName : null;
+    }
+
+    private async Task TryReportErrorAsync(Exception ex, string context)
+    {
+        if (!_errorReportingService.IsEnabled)
+        {
+            var result = MessageBox.Show(
+                "エラーが発生しました。開発者に報告しますか？\n\n" +
+                "報告を有効にすると、今後エラー発生時に自動的にGitHub Issuesが作成されます。\n" +
+                "（個人情報は送信されません）",
+                "エラー報告",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _errorReportingService.IsEnabled = true;
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        await _errorReportingService.ReportErrorAsync(ex, context);
     }
 
     #endregion
