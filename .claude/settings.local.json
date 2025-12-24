@@ -24,7 +24,19 @@
       "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" log --oneline -20)",
       "Bash(tree:*)",
       "Bash(ls:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "Bash(gh repo view:*)",
+      "Bash(gh release:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh api:*)",
+      "Bash(dotnet test:*)",
+      "Bash(dotnet publish:*)",
+      "Bash(powershell:*)",
+      "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" status)",
+      "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" diff)",
+      "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" log --oneline -5)",
+      "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" add .claude/settings.local.json)",
+      "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" commit -m \"$\\(cat <<''EOF''\nchore: Claude Code許可設定を更新\n\n追加した許可:\n- gh repo/release/api コマンド\n- dotnet test/publish コマンド\n- powershell コマンド\n- git status/diff コマンド\n\n🤖 Generated with [Claude Code]\\(https://claude.com/claude-code\\)\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")"
     ]
   }
 }
