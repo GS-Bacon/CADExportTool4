@@ -147,9 +147,12 @@ public partial class MainViewModel : ObservableObject, IDropTarget
 
         var progress = new Progress<ExportProgress>(p =>
         {
-            ProgressValue = p.Current;
-            ProgressMaximum = p.Total;
-            StatusMessage = p.StatusMessage;
+            Application.Current?.Dispatcher.Invoke(() =>
+            {
+                ProgressValue = p.Current;
+                ProgressMaximum = p.Total;
+                StatusMessage = p.StatusMessage;
+            });
         });
 
         try
@@ -337,7 +340,7 @@ public partial class MainViewModel : ObservableObject, IDropTarget
         var hasDrawingFormat = ExportOptions.ExportPdf || ExportOptions.ExportDxf;
         var hasPartFormat = ExportOptions.ExportIgs || ExportOptions.ExportStep || ExportOptions.Export3mf;
 
-        if (HasDrawingFiles && !hasDrawingFormat && HasPartFiles && !hasPartFormat)
+        if ((HasDrawingFiles && !hasDrawingFormat) || (HasPartFiles && !hasPartFormat))
         {
             MessageBox.Show("出力フォーマットを選択してください", "確認", MessageBoxButton.OK, MessageBoxImage.Warning);
             return false;

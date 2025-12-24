@@ -27,7 +27,7 @@ public class ThumbnailService : IThumbnailService
                 var outputPath = Path.Combine(outputFolder, outputFileName);
 
                 using var shellFile = ShellFile.FromFilePath(filePath);
-                var thumbnail = shellFile.Thumbnail.ExtraLargeBitmap;
+                using var thumbnail = shellFile.Thumbnail.ExtraLargeBitmap;
 
                 if (thumbnail != null)
                 {

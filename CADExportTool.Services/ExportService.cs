@@ -1,7 +1,6 @@
 using CADExportTool.Core.Enums;
 using CADExportTool.Core.Interfaces;
 using CADExportTool.Core.Models;
-using CADExportTool.Services.Converters;
 
 namespace CADExportTool.Services;
 
@@ -13,10 +12,7 @@ public class ExportService : IExportService
     private readonly ISolidWorksService _solidWorksService;
     private readonly IThumbnailService _thumbnailService;
     private readonly IZipService _zipService;
-
-    private readonly IFileConverter _drawingConverter;
-    private readonly IFileConverter _partConverter;
-    private readonly IFileConverter _assemblyConverter;
+    private readonly IFileConverterFactory _converterFactory;
 
     // 進捗カウンター（スレッドセーフのためlock使用）
     private int _currentTask;
@@ -25,15 +21,13 @@ public class ExportService : IExportService
     public ExportService(
         ISolidWorksService solidWorksService,
         IThumbnailService thumbnailService,
-        IZipService zipService)
+        IZipService zipService,
+        IFileConverterFactory converterFactory)
     {
         _solidWorksService = solidWorksService;
         _thumbnailService = thumbnailService;
         _zipService = zipService;
-
-        _drawingConverter = new DrawingConverter();
-        _partConverter = new PartConverter();
-        _assemblyConverter = new AssemblyConverter();
+        _converterFactory = converterFactory;
     }
 
     /// <inheritdoc/>
@@ -111,14 +105,16 @@ public class ExportService : IExportService
         int totalTasks,
         CancellationToken cancellationToken)
     {
+        var converter = _converterFactory.GetConverter(CadFileType.Drawing);
+
         if (options.ExportPdf)
         {
-            await ConvertFileAsync(_drawingConverter, file, baseFolder, "PDF", ExportFormat.Pdf, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "PDF", ExportFormat.Pdf, result, progress, totalTasks, cancellationToken);
         }
 
         if (options.ExportDxf)
         {
-            await ConvertFileAsync(_drawingConverter, file, baseFolder, "DXF", ExportFormat.Dxf, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "DXF", ExportFormat.Dxf, result, progress, totalTasks, cancellationToken);
         }
     }
 
@@ -131,19 +127,21 @@ public class ExportService : IExportService
         int totalTasks,
         CancellationToken cancellationToken)
     {
+        var converter = _converterFactory.GetConverter(CadFileType.Part);
+
         if (options.ExportIgs)
         {
-            await ConvertFileAsync(_partConverter, file, baseFolder, "IGS", ExportFormat.Igs, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "IGS", ExportFormat.Igs, result, progress, totalTasks, cancellationToken);
         }
 
         if (options.ExportStep)
         {
-            await ConvertFileAsync(_partConverter, file, baseFolder, "STEP", ExportFormat.Step, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "STEP", ExportFormat.Step, result, progress, totalTasks, cancellationToken);
         }
 
         if (options.Export3mf)
         {
-            await ConvertFileAsync(_partConverter, file, baseFolder, "3MF", ExportFormat.ThreeMf, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "3MF", ExportFormat.ThreeMf, result, progress, totalTasks, cancellationToken);
         }
     }
 
@@ -156,19 +154,21 @@ public class ExportService : IExportService
         int totalTasks,
         CancellationToken cancellationToken)
     {
+        var converter = _converterFactory.GetConverter(CadFileType.Assembly);
+
         if (options.ExportIgs)
         {
-            await ConvertFileAsync(_assemblyConverter, file, baseFolder, "IGS", ExportFormat.Igs, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "IGS", ExportFormat.Igs, result, progress, totalTasks, cancellationToken);
         }
 
         if (options.ExportStep)
         {
-            await ConvertFileAsync(_assemblyConverter, file, baseFolder, "STEP", ExportFormat.Step, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "STEP", ExportFormat.Step, result, progress, totalTasks, cancellationToken);
         }
 
         if (options.Export3mf)
         {
-            await ConvertFileAsync(_assemblyConverter, file, baseFolder, "3MF", ExportFormat.ThreeMf, result, progress, totalTasks, cancellationToken);
+            await ConvertFileAsync(converter, file, baseFolder, "3MF", ExportFormat.ThreeMf, result, progress, totalTasks, cancellationToken);
         }
     }
 
@@ -235,13 +235,28 @@ public class ExportService : IExportService
     {
         var fileDir = Path.GetDirectoryName(filePath) ?? string.Empty;
 
-        return options.OutputFolderOption switch
+        var outputFolder = options.OutputFolderOption switch
         {
             FolderOption.SameFolder => fileDir,
             FolderOption.SubFolder => Path.Combine(fileDir, options.SelectedSubFolder),
             FolderOption.CustomFolder => options.CustomFolderPath,
             _ => fileDir
         };
+
+        // Path Traversal対策: 正規化して親ディレクトリ参照を解決
+        var normalizedPath = Path.GetFullPath(outputFolder);
+
+        // サブフォルダ選択時、元のファイルディレクトリ外へのアクセスを防止
+        if (options.OutputFolderOption == FolderOption.SubFolder)
+        {
+            var normalizedFileDir = Path.GetFullPath(fileDir);
+            if (!normalizedPath.StartsWith(normalizedFileDir, StringComparison.OrdinalIgnoreCase))
+            {
+                throw new InvalidOperationException("Invalid subfolder path: attempting to access parent directory");
+            }
+        }
+
+        return normalizedPath;
     }
 
     private void ReportProgress(IProgress<ExportProgress>? progress, int current, int total, string fileName, string message)

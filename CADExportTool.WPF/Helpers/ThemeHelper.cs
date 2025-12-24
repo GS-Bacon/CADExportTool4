@@ -10,6 +10,8 @@ namespace CADExportTool.WPF.Helpers;
 public static class ThemeHelper
 {
     private static readonly PaletteHelper _paletteHelper = new();
+    private static bool _isWatching;
+    private static readonly object _lockObject = new();
 
     /// <summary>
     /// 現在のOSテーマがダークモードかどうかを取得
@@ -39,9 +41,16 @@ public static class ThemeHelper
     /// </summary>
     public static void SetTheme(bool isDark)
     {
-        var theme = _paletteHelper.GetTheme();
-        theme.SetBaseTheme(isDark ? BaseTheme.Dark : BaseTheme.Light);
-        _paletteHelper.SetTheme(theme);
+        try
+        {
+            var theme = _paletteHelper.GetTheme();
+            theme.SetBaseTheme(isDark ? BaseTheme.Dark : BaseTheme.Light);
+            _paletteHelper.SetTheme(theme);
+        }
+        catch
+        {
+            // テーマ設定に失敗しても続行
+        }
     }
 
     /// <summary>
@@ -57,7 +66,12 @@ public static class ThemeHelper
     /// </summary>
     public static void StartWatchingSystemTheme()
     {
-        SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+        lock (_lockObject)
+        {
+            if (_isWatching) return;
+            SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+            _isWatching = true;
+        }
     }
 
     /// <summary>
@@ -65,14 +79,36 @@ public static class ThemeHelper
     /// </summary>
     public static void StopWatchingSystemTheme()
     {
-        SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
+        lock (_lockObject)
+        {
+            if (!_isWatching) return;
+            try
+            {
+                SystemEvents.UserPreferenceChanged -= OnUserPreferenceChanged;
+            }
+            catch
+            {
+                // 解除に失敗しても続行
+            }
+            finally
+            {
+                _isWatching = false;
+            }
+        }
     }
 
     private static void OnUserPreferenceChanged(object sender, UserPreferenceChangedEventArgs e)
     {
         if (e.Category == UserPreferenceCategory.General)
         {
-            Application.Current?.Dispatcher.Invoke(SyncWithSystemTheme);
+            try
+            {
+                Application.Current?.Dispatcher.Invoke(SyncWithSystemTheme);
+            }
+            catch
+            {
+                // アプリケーション終了時など、Dispatcher呼び出しに失敗する場合がある
+            }
         }
     }
 }

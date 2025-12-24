@@ -11,23 +11,6 @@
              mc:Ignorable="d"
              d:DesignHeight="650" d:DesignWidth="950">
 
-    <UserControl.Resources>
-        <!-- ファイルタイプによる色分け -->
-        <Style x:Key="FileListItemStyle" TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding FileType}" Value="{x:Static enums:CadFileType.Drawing}">
-                    <Setter Property="Foreground" Value="#D32F2F"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding FileType}" Value="{x:Static enums:CadFileType.Part}">
-                    <Setter Property="Foreground" Value="#1976D2"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding FileType}" Value="{x:Static enums:CadFileType.Assembly}">
-                    <Setter Property="Foreground" Value="#0D47A1"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
-
     <Grid>
         <!-- メインコンテンツ -->
         <Grid Margin="16">

@@ -19,7 +19,12 @@
       "Bash(git commit:*)",
       "Bash(gh release create:*)",
       "Bash(winget install:*)",
-      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" release create:*)"
+      "Bash(\"C:\\Program Files\\GitHub CLI\\gh.exe\" release create:*)",
+      "Bash(dir:*)",
+      "Bash(git -C \"c:\\\\Users\\\\bacon\\\\source\\\\repos\\\\GS-Bacon\\\\CADExportTool4\" log --oneline -20)",
+      "Bash(tree:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)"
     ]
   }
 }

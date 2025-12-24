@@ -31,8 +31,15 @@ public partial class App : PrismApplication
 
     protected override void OnExit(ExitEventArgs e)
     {
-        // OSテーマ変更の監視を停止
-        ThemeHelper.StopWatchingSystemTheme();
+        try
+        {
+            // OSテーマ変更の監視を停止
+            ThemeHelper.StopWatchingSystemTheme();
+        }
+        catch
+        {
+            // 終了処理中のエラーは無視
+        }
 
         base.OnExit(e);
     }
@@ -42,6 +49,7 @@ public partial class App : PrismApplication
         // Singleton services
         containerRegistry.RegisterSingleton<ISolidWorksService, SolidWorksService>();
         containerRegistry.RegisterSingleton<ISnackbarMessageQueue>(_ => new SnackbarMessageQueue(TimeSpan.FromSeconds(3)));
+        containerRegistry.RegisterSingleton<IFileConverterFactory, FileConverterFactory>();
 
         // Transient services
         containerRegistry.Register<IExportService, ExportService>();
