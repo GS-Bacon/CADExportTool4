@@ -2,6 +2,49 @@
 
 > 変更履歴と実装記録
 
+## [v1.2.0] 2025-12-27 - アーキテクチャ改善
+
+### リファクタリング
+
+#### 1. レガシープロジェクト整理
+
+- **削除対象をアーカイブ**:
+  - `SMZ_CADExportTool/` (Windows Forms UI)
+  - `SolidworksAPIAPI/` (旧API wrapper)
+  - `TestProject2/` (レガシー依存)
+  - `UnitTestProject1/2/3/` (空プロジェクト)
+  - `CADExportTool4/` (空プロジェクト)
+
+- **プロジェクト数**: 11 → 4 に削減
+- `_archived/` に移動し `.gitignore` に追加
+
+#### 2. テストプロジェクト統一
+
+- `TestProject1` → `CADExportTool.Tests` にリネーム
+- 適切なプロジェクト参照を設定
+- 名前空間を `CADExportTool.Tests` に統一
+- Moq パッケージを追加（今後のテスト拡充用）
+
+#### 3. ソリューション構成
+
+**新構成**:
+```
+CADExportTool4/
+├── CADExportTool.Core/      # 共有コア (インターフェース・モデル)
+├── CADExportTool.Services/  # サービス実装
+├── CADExportTool.WPF/       # WPFアプリ
+└── CADExportTool.Tests/     # 単体テスト
+```
+
+### ドキュメント
+
+- `specs/improvement-plan-2024-12-27.md` を追加
+  - 今後の改善計画
+  - MainViewModel分割計画
+  - テスト戦略
+
+---
+
 ## [v1.1.0] 2025-12-24 - 自動更新・エラー報告機能
 
 ### 新機能

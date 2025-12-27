@@ -2,26 +2,34 @@
 
 ## Project Overview
 
-CADExportTool4はSolidWorks APIを使用してCADファイルを様々なフォーマットにエクスポートするためのWindows Formsアプリケーションです。
+CADExportTool4はSolidWorks APIを使用してCADファイルを様々なフォーマットにエクスポートするためのWPFアプリケーションです。
 
 ## Technology Stack
 
 - **Framework**: .NET 8.0 (Windows)
-- **UI**: Windows Forms
+- **UI**: WPF + Prism + Material Design
+- **MVVM**: CommunityToolkit.Mvvm
+- **DI**: Prism.DryIoc
 - **Language**: C#
 - **CAD Integration**: SolidWorks API (Interop)
-- **IDE**: Visual Studio
 
 ## Project Structure
 
 ```
 CADExportTool4/
-├── SMZ_CADExportTool/      # Main Windows Forms application
-├── SolidworksAPIAPI/       # SolidWorks API wrapper library
-│   └── Converter/          # File conversion logic
-├── TestProject1/           # Test project
-├── TestProject2/           # Test project
-├── UnitTestProject1-3/     # Unit test projects
+├── CADExportTool.WPF/      # WPFアプリ (スタートアップ)
+│   ├── Views/              # XAML Views
+│   ├── ViewModels/         # MVVM ViewModels
+│   ├── Helpers/            # ThemeHelper等
+│   └── Services/           # WPF固有サービス
+├── CADExportTool.Core/     # 共有コア
+│   ├── Enums/              # CadFileType, ExportFormat等
+│   ├── Interfaces/         # サービスインターフェース
+│   └── Models/             # ドメインモデル
+├── CADExportTool.Services/ # サービス実装
+│   ├── Converters/         # Drawing/Part/Assembly Converter
+│   └── *.cs                # SolidWorks, Export, Update等
+├── CADExportTool.Tests/    # 単体テスト
 ├── specs/                  # Feature specifications (spec-kit)
 ├── memory/                 # Project constitution and memory
 └── .claude/commands/       # Claude Code slash commands
@@ -29,9 +37,10 @@ CADExportTool4/
 
 ## Key Files
 
-- `SMZ_CADExportTool/CADExportTool.cs` - Main form logic
-- `SMZ_CADExportTool/ExportFile.cs` - Export file handling
-- `SolidworksAPIAPI/Converter/` - Conversion implementations
+- `CADExportTool.WPF/ViewModels/MainViewModel.cs` - メインViewModel
+- `CADExportTool.Services/ExportService.cs` - エクスポートオーケストレーション
+- `CADExportTool.Services/SolidWorksService.cs` - SolidWorks接続管理
+- `CADExportTool.Services/Converters/` - ファイル変換実装
 
 ## Development Guidelines
 
@@ -50,9 +59,15 @@ CADExportTool4/
 - 暗黙的なusingを使用 (`<ImplicitUsings>enable</ImplicitUsings>`)
 - 日本語のコメントを使用可
 
+### Architecture Principles
+
+- **層分離**: WPF → Services → Core
+- **DI**: すべてのサービスはインターフェース経由で注入
+- **非同期**: async/await + CancellationToken + IProgress<T>
+
 ### Testing
 
-- 単体テストは各UnitTestProjectで実行
+- 単体テストは `CADExportTool.Tests` で実行
 - SolidWorksが必要なテストは手動で実行
 
 ## Commands
@@ -68,3 +83,5 @@ CADExportTool4/
 
 - [SolidWorks API Documentation](https://help.solidworks.com/2024/english/api/SWHelp_Welcome.htm)
 - [spec-kit Documentation](https://github.com/github/spec-kit)
+- [Prism Library](https://prismlibrary.com/)
+- [Material Design In XAML](https://materialdesigninxaml.net/)

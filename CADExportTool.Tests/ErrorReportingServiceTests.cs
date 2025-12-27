@@ -1,4 +1,4 @@
-namespace TestProject1;
+namespace CADExportTool.Tests;
 
 [TestClass]
 public sealed class ErrorReportingServiceTests
