@@ -364,3 +364,7 @@ FodyWeavers.xsd
 
 # Archived legacy projects
 _archived/
+
+# Test data (CAD files)
+testdata/input/*.SLD*
+testdata/output/
